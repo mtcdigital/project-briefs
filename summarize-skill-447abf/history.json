@@ -11,6 +11,15 @@
       "file": "v1-2026-09-01.html",
       "title": "The /summarize Skill",
       "status": "Working"
+    },
+    {
+      "n": 2,
+      "date": "2026-09-01",
+      "date_human": "Sep 1, 2026",
+      "changed": "Rebuilt the format: 60-second read, timeline with the goal on the right, done-vs-left at a glance.",
+      "file": "v2-2026-09-01.html",
+      "percent": 70,
+      "status": "Working"
     }
   ],
   "tagline": "A one-word command that turns a whole Claude Code project into a plain-English page you can text to somebody.",
