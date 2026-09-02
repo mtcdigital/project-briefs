@@ -1,0 +1,19 @@
+{
+  "slug": "summarize-skill-447abf",
+  "title": "The /summarize Skill",
+  "created": null,
+  "versions": [
+    {
+      "n": 1,
+      "date": "2026-09-01",
+      "date_human": "Sep 1, 2026",
+      "changed": "First version \u2014 built the whole system today: command, hosting, version history.",
+      "file": "v1-2026-09-01.html",
+      "title": "The /summarize Skill",
+      "status": "Working"
+    }
+  ],
+  "tagline": "A one-word command that turns a whole Claude Code project into a plain-English page you can text to somebody.",
+  "status": "Working",
+  "status_kind": "ok"
+}
