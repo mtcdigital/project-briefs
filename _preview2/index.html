@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>The /summarize Command</title>
+<meta property="og:title" content="The /summarize Command">
+<meta property="og:description" content="Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You&#x27;re caught up in a minute instead of a phone call.">
+<meta name="theme-color" content="#0B0F14">
+<style>
+/* ===== Project Brief — locked 60-second format (inlined into every page) ===== */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#0B0F14; --surf:#131B24; --surf2:#1A2531; --line:#243343; --line2:#2E4053;
+  --tx:#E9EFF5; --mut:#9CB0C2; --dim:#6D8298;
+  --acc:#3987e5;
+  /* validated categorical slots (dark, surface #131B24) */
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  /* fixed status palette */
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --r:14px;
+}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--tx);
+  font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  padding-bottom:56px;
+}
+body::before{
+  content:""; position:fixed; inset:0 0 auto 0; height:300px; z-index:0; pointer-events:none;
+  background:radial-gradient(820px 300px at 22% -70px, rgba(57,135,229,.17), transparent 70%);
+}
+.wrap{position:relative; z-index:1; max-width:780px; margin:0 auto; padding:0 18px}
+a{color:var(--acc); text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- Hero ---------- */
+.hero{padding:34px 0 8px}
+.eyebrow{
+  display:inline-block; font-size:11px; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--dim);
+}
+.hero h1{margin:10px 0 12px; font-size:clamp(28px,6.4vw,42px); line-height:1.06;
+  letter-spacing:-.028em; font-weight:800}
+.hero-meta{display:flex; flex-wrap:wrap; gap:7px; align-items:center}
+.pill{
+  display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:650;
+  padding:5px 12px; border-radius:99px; border:1px solid var(--line);
+  background:var(--surf); color:var(--mut); white-space:nowrap;
+}
+.pill .dot{width:8px;height:8px;border-radius:99px;background:var(--dim);flex:0 0 auto}
+.pill.ok{color:#8FE58F;border-color:rgba(12,163,12,.45);background:rgba(12,163,12,.13)}
+.pill.ok .dot{background:var(--good)}
+.pill.wip{color:#FFD98A;border-color:rgba(250,178,25,.42);background:rgba(250,178,25,.12)}
+.pill.wip .dot{background:var(--warn)}
+.pill.stop{color:#FFA9A9;border-color:rgba(208,59,59,.45);background:rgba(208,59,59,.14)}
+.pill.stop .dot{background:var(--crit)}
+.pill.info{color:#B8D5F8;border-color:rgba(57,135,229,.42);background:rgba(57,135,229,.13)}
+.pill.info .dot{background:var(--s1)}
+
+/* ---------- Cards ---------- */
+.card{background:var(--surf); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px 20px 22px; margin:16px 0}
+.card > :first-child{margin-top:0}
+.card > :last-child{margin-bottom:0}
+h2{font-size:11.5px; font-weight:750; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--dim); margin:0 0 15px}
+p{margin:0 0 11px} p:last-child{margin-bottom:0}
+strong,b{color:#fff; font-weight:670}
+code{font:.86em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:var(--surf2); border:1px solid var(--line); border-radius:5px; padding:1px 6px}
+
+/* ---------- The point (summary + goal) ---------- */
+.point{font-size:clamp(17px,3.7vw,19.5px); line-height:1.55; color:#DCE6F0;
+  margin:0 0 16px; font-weight:480}
+.goal{
+  display:flex; gap:13px; align-items:flex-start; background:var(--surf2);
+  border:1px solid var(--line2); border-left:3px solid var(--s1);
+  border-radius:0 11px 11px 0; padding:14px 16px;
+}
+.goal .fl{font-size:20px; line-height:1.2; flex:0 0 auto}
+.goal .gt{font-size:10.5px;font-weight:780;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--dim); display:block; margin-bottom:3px}
+.goal .gv{font-size:16.5px; line-height:1.45; color:#fff; font-weight:620}
+
+/* ---------- Timeline ---------- */
+.tlwrap{margin:0}
+.tl-hero{display:flex; align-items:baseline; gap:11px; margin:0 0 22px; flex-wrap:wrap}
+.tl-pct{font-size:clamp(38px,9vw,52px); font-weight:800; letter-spacing:-.045em;
+  line-height:1; color:#fff}
+.tl-sub{font-size:14.5px; color:var(--mut); line-height:1.4}
+
+.tl{position:relative; padding:26px 0 4px}
+.tl-rail{position:relative; height:6px; border-radius:99px; background:var(--surf2);
+  border:1px solid var(--line); overflow:visible}
+.tl-fill{position:absolute; left:0; top:0; bottom:0; width:var(--pct);
+  background:linear-gradient(90deg,var(--s3),var(--s1)); border-radius:99px}
+.tl-you{
+  position:absolute; top:-30px; left:var(--pctc); transform:translateX(-50%);
+  font-size:11px; font-weight:750; letter-spacing:.04em; white-space:nowrap;
+  background:var(--s1); color:#04121F; padding:3px 9px; border-radius:99px;
+}
+.tl-you::after{content:""; position:absolute; left:50%; top:100%; transform:translateX(-50%);
+  border:5px solid transparent; border-top-color:var(--s1)}
+
+.tl-nodes{position:relative; height:70px; margin-top:-3px}
+.tl-node{position:absolute; top:0; width:118px; padding:0 5px; text-align:center; transform:translateX(-50%)}
+.tl-node.first{transform:translateX(0); text-align:left; width:124px; padding:0 16px 0 0}
+.tl-node.last{transform:translateX(-100%); text-align:right; width:124px; padding:0 0 0 16px}
+.tl-node i{
+  display:block; width:13px; height:13px; border-radius:99px; margin:0 auto 9px;
+  background:var(--surf2); border:2px solid var(--line2); font-style:normal;
+}
+.tl-node.first i{margin-left:0} .tl-node.last i{margin-right:0}
+.tl-node span{display:block; font-size:12px; line-height:1.3; overflow-wrap:break-word; color:var(--mut); font-weight:600}
+.tl-node.done i{background:var(--good); border-color:var(--good)}
+.tl-node.done span{color:var(--mut)}
+.tl-node.now i{background:var(--s1); border-color:var(--s1); box-shadow:0 0 0 5px rgba(57,135,229,.22)}
+.tl-node.now span{color:#fff; font-weight:720}
+.tl-node.fin i{background:transparent; border-color:var(--warn);
+  box-shadow:0 0 0 4px rgba(250,178,25,.16)}
+.tl-node.fin span{color:#fff; font-weight:720}
+.tl-node.fin span::before{content:"🏁"; margin-right:6px; font-weight:400}
+
+/* vertical on phones — far easier to read than a squeezed horizontal rail */
+@media (max-width:600px){
+  .tl{padding:6px 0 0}
+  .tl-rail{position:absolute; left:6px; top:8px; bottom:20px; width:6px; height:auto}
+  .tl-fill{width:100%; height:var(--pct); bottom:auto;
+    background:linear-gradient(180deg,var(--s3),var(--s1))}
+  .tl-you{top:var(--pctc); left:auto; right:0; transform:translateY(-50%); margin:0}
+  .tl-you::after{display:none}
+  .tl-nodes{height:auto; margin:0; padding-left:32px; display:flex; flex-direction:column; gap:19px}
+  .tl-node,.tl-node.first,.tl-node.last{
+    position:relative; top:auto; left:auto !important; width:auto; padding:0;
+    transform:none; text-align:left; display:flex; align-items:center; gap:12px;
+  }
+  .tl-node i{margin:0 0 0 -30px !important; flex:0 0 auto}
+  .tl-node span{font-size:14.5px}
+}
+
+/* ---------- Done / Left ---------- */
+.cols{display:grid; gap:14px}
+@media (min-width:620px){ .cols{grid-template-columns:1fr 1fr; gap:18px} }
+.col h3{margin:0 0 11px; font-size:13px; font-weight:750; letter-spacing:.02em;
+  display:flex; align-items:center; gap:8px; color:#fff}
+.col h3 em{margin-left:auto; font-style:normal; font-size:11px; font-weight:700; color:var(--dim);
+  background:var(--surf2); border:1px solid var(--line); padding:2px 7px; border-radius:99px}
+.col ul{list-style:none; margin:0; padding:0}
+.col li{position:relative; padding:0 0 0 24px; margin:0 0 9px; font-size:14.5px;
+  line-height:1.5; color:var(--mut)}
+.col li:last-child{margin-bottom:0}
+.col.yes li::before{content:"✓"; position:absolute; left:2px; top:-1px;
+  color:var(--good); font-weight:800; font-size:14px}
+.col.no li::before{content:""; position:absolute; left:4px; top:6px; width:8px; height:8px;
+  border-radius:2px; border:1.5px solid var(--line2)}
+.col.no li.block::before{border-color:var(--crit); background:rgba(208,59,59,.3)}
+.col.no li.block{color:#FFA9A9}
+
+/* ---------- Stats ---------- */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:10px}
+.stats div{background:var(--surf2); border:1px solid var(--line); border-radius:11px; padding:13px 14px}
+.stats .lab{display:block; font-size:10.5px; font-weight:750; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+.stats .val{display:block; font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:4px; line-height:1.15}
+.stats .note{display:block; font-size:12.5px; color:var(--mut); margin-top:2px; line-height:1.4}
+.stats .val.g{color:var(--good)} .stats .val.r{color:var(--crit)} .stats .val.a{color:var(--warn)}
+
+/* ---------- Bar chart ---------- */
+.bars{display:grid; gap:9px}
+.bar{display:grid; grid-template-columns:minmax(72px,26%) 1fr auto; gap:11px; align-items:center}
+.bar .bl{font-size:13.5px; color:var(--mut); line-height:1.3; text-align:right}
+.bar .bt{position:relative; height:16px; background:var(--surf2); border-radius:4px; overflow:hidden}
+.bar .bt i{position:absolute; left:0; top:0; bottom:0; border-radius:0 4px 4px 0; display:block}
+.bar .bv{font-size:13.5px; font-weight:700; color:#fff; font-variant-numeric:tabular-nums; min-width:34px}
+@media (max-width:480px){
+  .bar{grid-template-columns:1fr auto; grid-template-areas:"l v" "t t"; gap:3px 9px}
+  .bar .bl{grid-area:l; text-align:left} .bar .bv{grid-area:v} .bar .bt{grid-area:t; margin-bottom:5px}
+}
+
+/* ---------- Donut ---------- */
+.donut{display:flex; gap:20px; align-items:center; flex-wrap:wrap}
+.donut svg{flex:0 0 auto}
+.dlegend{list-style:none; margin:0; padding:0; flex:1 1 190px; min-width:0}
+.dlegend li{display:flex; align-items:center; gap:9px; font-size:14px; margin:0 0 9px; color:var(--mut)}
+.dlegend li:last-child{margin:0}
+.dlegend i{width:11px; height:11px; border-radius:3px; flex:0 0 auto}
+.dlegend b{color:#fff; margin-left:auto; font-variant-numeric:tabular-nums}
+
+/* ---------- Next steps ---------- */
+.next{list-style:none; counter-reset:n; padding:0; margin:0}
+.next li{counter-increment:n; position:relative; padding-left:38px; margin:0 0 14px;
+  font-size:16px; line-height:1.5}
+.next li:last-child{margin-bottom:0}
+.next li::before{content:counter(n); position:absolute; left:0; top:1px;
+  width:26px; height:26px; border-radius:8px; display:grid; place-items:center;
+  background:rgba(250,178,25,.18); border:1px solid rgba(250,178,25,.42);
+  color:#FFD98A; font-size:12.5px; font-weight:800}
+.who{display:inline-block; font-size:11px; font-weight:750; letter-spacing:.05em;
+  background:var(--surf2); border:1px solid var(--line); color:var(--mut);
+  padding:2px 8px; border-radius:99px; margin-right:7px; vertical-align:1.5px}
+
+/* ---------- Repo button ---------- */
+.repo{display:inline-flex; align-items:center; gap:10px; background:var(--surf2);
+  border:1px solid var(--line2); border-radius:11px; padding:12px 16px; color:var(--tx);
+  font-size:14.5px; font-weight:620}
+.repo:hover{border-color:var(--acc); text-decoration:none}
+.repo .rl{font:13px/1 ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--mut)}
+
+/* ---------- Glossary ---------- */
+.gloss{margin:0; display:grid; gap:10px}
+.gloss div{border-bottom:1px solid var(--line); padding-bottom:10px}
+.gloss div:last-child{border-bottom:0; padding-bottom:0}
+.gloss dt{font-weight:700; color:#fff; font-size:14.5px; margin-bottom:2px}
+.gloss dd{margin:0; color:var(--mut); font-size:14px; line-height:1.55}
+
+/* ---------- Version history ---------- */
+details.vhbox{background:var(--surf); border:1px solid var(--line); border-radius:var(--r);
+  padding:0; margin:16px 0}
+details.vhbox summary{list-style:none; cursor:pointer; padding:15px 20px;
+  font-size:11.5px; font-weight:750; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--dim); display:flex; align-items:center; justify-content:space-between; gap:10px}
+details.vhbox summary::-webkit-details-marker{display:none}
+details.vhbox summary::after{content:"▾"; font-size:13px; transition:.2s}
+details.vhbox[open] summary::after{transform:rotate(180deg)}
+.vh{list-style:none; padding:0 20px 18px; margin:0}
+.vh li{display:flex; gap:11px; align-items:flex-start; padding:10px 0;
+  border-top:1px solid var(--line); margin:0; font-size:14px}
+.vh .vn{flex:0 0 auto; font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace; font-weight:700;
+  background:var(--surf2); border:1px solid var(--line); color:var(--mut);
+  padding:5px 7px; border-radius:6px}
+.vh .vb{flex:1; min-width:0; color:var(--mut)}
+.vh .vb .vd{color:var(--dim); font-size:12px; margin-top:2px}
+.vh .now{border-color:rgba(57,135,229,.45); background:rgba(57,135,229,.14); color:#B8D5F8}
+
+/* ---------- Archive banner ---------- */
+.arch{position:relative; z-index:2; background:rgba(250,178,25,.14);
+  border-bottom:1px solid rgba(250,178,25,.38); padding:11px 18px; text-align:center;
+  font-size:14px; color:#FFD98A}
+.arch b{color:#fff}
+.arch a{color:#fff; text-decoration:underline; font-weight:650}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line); margin-top:26px; padding-top:18px;
+  color:var(--dim); font-size:12.5px; line-height:1.65}
+
+@media print{
+  body{background:#fff;color:#111;padding:0} body::before{display:none}
+  .card,details.vhbox{border-color:#ddd;background:#fff;break-inside:avoid}
+  h1,h2,h3,strong,b,.tl-pct,.goal .gv{color:#111}
+  .point,.col li,.gloss dd,.tl-node span{color:#444}
+}
+
+</style>
+</head>
+<body>
+<!--BANNER-->
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">60-second catch-up &nbsp;·&nbsp; v1</div>
+    <h1>The /summarize Command</h1>
+    <div class="hero-meta">
+      <span class="pill ok"><span class="dot"></span>Working</span>
+      <span class="pill"><span class="dot"></span>Updated Sep 1, 2026</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <p class="point">Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You&#x27;re caught up in a minute instead of a phone call.</p>
+    <div class="goal"><span class="fl">🏁</span><div><span class="gt">Where this is headed</span><span class="gv">Nobody ever has to be caught up by text message again.</span></div></div>
+  </section>
+
+  <section class="card tlwrap">
+    <h2>The road to the goal</h2>
+    <div class="tl-hero">
+      <span class="tl-pct">70%</span>
+      <span class="tl-sub">of the way there<br>3 of 4 pieces proven.</span>
+    </div>
+    <div class="tl" style="--pct:70%;--pctc:70%">
+      <div class="tl-rail"><div class="tl-fill"></div></div>
+      <div class="tl-you">You are here</div>
+      <div class="tl-nodes">
+        <div class="tl-node done first" style="left:0.0%"><i></i><span>Idea</span></div>
+        <div class="tl-node done" style="left:25.0%"><i></i><span>Built it</span></div>
+        <div class="tl-node done" style="left:50.0%"><i></i><span>Live on web</span></div>
+        <div class="tl-node now" style="left:75.0%"><i></i><span>Real test</span></div>
+        <div class="tl-node fin last" style="left:100.0%"><i></i><span>Everyone caught up</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>The numbers</h2>
+    <div class="stats"><div><span class="lab">Cost to run</span><span class="val g">$0</span><span class="note">Free hosting, forever</span></div><div><span class="lab">Type to link</span><span class="val ">~30s</span><span class="note">One command</span></div><div><span class="lab">New accounts</span><span class="val g">0</span><span class="note">Uses your GitHub</span></div><div><span class="lab">Versions kept</span><span class="val ">All</span><span class="note">Nothing overwritten</span></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Done vs. left</h2>
+    <div class="cols">
+      <div class="col yes">
+        <h3><span>✅</span><span>Already working</span><em>6</em></h3>
+        <ul><li>Type /summarize in any chat</li><li>Gives back a real web link</li><li>No login, opens on any phone</li><li>Old versions saved forever</li><li>Hidden from Google</li><li>Costs nothing to run</li></ul>
+      </div>
+      <div class="col no">
+        <h3><span>⬜</span><span>Still to do</span><em>3</em></h3>
+        <ul><li>Never used on a real messy project</li><li class="block">Nobody gets told when it updates</li><li>Format not yet approved by a real reader</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Rough hours spent building this</h2>
+    <div class="bars"><div class="bar"><span class="bl">Page design</span><span class="bt"><i style="width:100.0%;background:var(--s1)"></i></span><span class="bv">3 hrs</span></div><div class="bar"><span class="bl">The engine</span><span class="bt"><i style="width:66.7%;background:var(--s1)"></i></span><span class="bv">2 hrs</span></div><div class="bar"><span class="bl">Writing rules</span><span class="bt"><i style="width:66.7%;background:var(--s1)"></i></span><span class="bv">2 hrs</span></div><div class="bar"><span class="bl">Testing</span><span class="bt"><i style="width:33.3%;background:var(--s1)"></i></span><span class="bv">1 hr</span></div></div>
+  </section>
+
+  <section class="card">
+    <h2>🙋 What happens next</h2>
+    <ol class="next"><li><span class="who">Everett</span>Run /summarize on the meme coin bot — the real test.</li><li><span class="who">You</span>Open this on your phone. Did 60 seconds actually do it?</li><li><span class="who">Decision</span>Auto-email people on updates, or just re-text the link?</li></ol>
+  </section>
+
+  <section class="card">
+    <h2>Want the details?</h2>
+    <a class="repo" href="https://github.com/mtcdigital/project-briefs" target="_blank" rel="noopener"><span>📂</span><span>All the code and files<br><span class="rl">mtcdigital/project-briefs</span></span></a>
+  </section>
+
+  <section class="card">
+    <h2>📖 Words you might not know</h2>
+    <dl class="gloss"><div><dt>Skill</dt><dd>A saved instruction sheet for the AI. Typing /summarize loads it and the AI follows the steps, like a recipe card.</dd></div><div><dt>Unlisted</dt><dd>Not password-locked, but not findable either. Hidden from Google, and the web address has random letters so it can&#x27;t be guessed.</dd></div></dl>
+  </section>
+
+  <details class="vhbox">
+    <summary>🕓 Version history — 1 version</summary>
+    <ul class="vh">
+      <li><span class="vn now">v1</span><div class="vb"><b>You are here</b> — Preview — not published.<div class="vd">Sep 1, 2026</div></div></li>
+    </ul>
+  </details>
+
+  <footer>
+    Version 1 · Sep 1, 2026 · this link always shows the newest version.<br>
+    Unlisted page — not in Google, but anyone with the link can read it.
+  </footer>
+
+</div>
+</body>
+</html>
