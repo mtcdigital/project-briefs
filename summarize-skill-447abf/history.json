@@ -1,6 +1,6 @@
 {
   "slug": "summarize-skill-447abf",
-  "title": "The /summarize Skill",
+  "title": "The /summarize Command",
   "created": null,
   "versions": [
     {
@@ -11,9 +11,21 @@
       "file": "v1-2026-09-01.html",
       "title": "The /summarize Skill",
       "status": "Working"
+    },
+    {
+      "n": 2,
+      "date": "2026-09-01",
+      "date_human": "Sep 1, 2026",
+      "changed": "Rebuilt the whole format: shorter, visual, timeline-first. Same link, new look.",
+      "file": "v2-2026-09-01.html",
+      "percent": 70,
+      "status": "Working"
     }
   ],
   "tagline": "A one-word command that turns a whole Claude Code project into a plain-English page you can text to somebody.",
   "status": "Working",
-  "status_kind": "ok"
+  "status_kind": "ok",
+  "summary": "Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You're caught up in a minute instead of a phone call.",
+  "percent": 70,
+  "goal": "Nobody ever has to be caught up by text message again."
 }
