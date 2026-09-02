@@ -1,8 +1,14 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
-<title>Project Briefs</title><meta name="theme-color" content="#0B0F14">
+<meta name="referrer" content="no-referrer">
+<title>The /summarize Command</title>
+<meta property="og:title" content="The /summarize Command">
+<meta property="og:description" content="Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You&#x27;re caught up in a minute instead of a phone call.">
+<meta name="theme-color" content="#0B0F14">
 <style>
 /* ===== Project Brief — locked 60-second format (inlined into every page) ===== */
 *,*::before,*::after{box-sizing:border-box}
@@ -99,24 +105,25 @@ code{font:.86em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
 .tl-you::after{content:""; position:absolute; left:50%; top:100%; transform:translateX(-50%);
   border:5px solid transparent; border-top-color:var(--s1)}
 
-.tl-nodes{position:relative; height:70px; margin-top:-3px}
-.tl-node{position:absolute; top:0; width:118px; padding:0 5px; text-align:center; transform:translateX(-50%)}
-.tl-node.first{transform:translateX(0); text-align:left; width:124px; padding:0 16px 0 0}
-.tl-node.last{transform:translateX(-100%); text-align:right; width:124px; padding:0 0 0 16px}
+.tl-nodes{position:relative; height:74px; margin-top:-3px}
+.tl-node{position:absolute; top:0; width:104px; text-align:center; transform:translateX(-50%)}
+.tl-node.first{transform:translateX(0); text-align:left}
+.tl-node.last{transform:translateX(-100%); text-align:right}
 .tl-node i{
   display:block; width:13px; height:13px; border-radius:99px; margin:0 auto 9px;
   background:var(--surf2); border:2px solid var(--line2); font-style:normal;
 }
 .tl-node.first i{margin-left:0} .tl-node.last i{margin-right:0}
-.tl-node span{display:block; font-size:12px; line-height:1.3; overflow-wrap:break-word; color:var(--mut); font-weight:600}
+.tl-node span{display:block; font-size:12.5px; line-height:1.35; color:var(--mut); font-weight:600}
 .tl-node.done i{background:var(--good); border-color:var(--good)}
 .tl-node.done span{color:var(--mut)}
 .tl-node.now i{background:var(--s1); border-color:var(--s1); box-shadow:0 0 0 5px rgba(57,135,229,.22)}
 .tl-node.now span{color:#fff; font-weight:720}
-.tl-node.fin i{background:transparent; border-color:var(--warn);
-  box-shadow:0 0 0 4px rgba(250,178,25,.16)}
-.tl-node.fin span{color:#fff; font-weight:720}
-.tl-node.fin span::before{content:"🏁"; margin-right:6px; font-weight:400}
+.tl-node.goal i{
+  width:auto; height:auto; background:none; border:0; font-size:17px; line-height:13px;
+  margin-bottom:7px;
+}
+.tl-node.goal span{color:#fff; font-weight:720}
 
 /* vertical on phones — far easier to read than a squeezed horizontal rail */
 @media (max-width:600px){
@@ -124,14 +131,16 @@ code{font:.86em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
   .tl-rail{position:absolute; left:6px; top:8px; bottom:20px; width:6px; height:auto}
   .tl-fill{width:100%; height:var(--pct); bottom:auto;
     background:linear-gradient(180deg,var(--s3),var(--s1))}
-  .tl-you{top:var(--pctc); left:auto; right:0; transform:translateY(-50%); margin:0}
-  .tl-you::after{display:none}
+  .tl-you{top:var(--pctc); left:20px; transform:translateY(-50%); margin-top:8px}
+  .tl-you::after{left:-5px; top:50%; transform:translateY(-50%);
+    border-top-color:transparent; border-right-color:var(--s1)}
   .tl-nodes{height:auto; margin:0; padding-left:32px; display:flex; flex-direction:column; gap:19px}
   .tl-node,.tl-node.first,.tl-node.last{
-    position:relative; top:auto; left:auto !important; width:auto; padding:0;
+    position:relative; top:auto; left:auto !important; width:auto;
     transform:none; text-align:left; display:flex; align-items:center; gap:12px;
   }
-  .tl-node i{margin:0 0 0 -30px !important; flex:0 0 auto}
+  .tl-node i{margin:0 0 0 -32px !important; flex:0 0 auto}
+  .tl-node.goal i{margin-left:-34px !important}
   .tl-node span{font-size:14.5px}
 }
 
@@ -140,7 +149,7 @@ code{font:.86em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
 @media (min-width:620px){ .cols{grid-template-columns:1fr 1fr; gap:18px} }
 .col h3{margin:0 0 11px; font-size:13px; font-weight:750; letter-spacing:.02em;
   display:flex; align-items:center; gap:8px; color:#fff}
-.col h3 em{margin-left:auto; font-style:normal; font-size:11px; font-weight:700; color:var(--dim);
+.col h3 em{font-style:normal; font-size:11px; font-weight:700; color:var(--dim);
   background:var(--surf2); border:1px solid var(--line); padding:2px 7px; border-radius:99px}
 .col ul{list-style:none; margin:0; padding:0}
 .col li{position:relative; padding:0 0 0 24px; margin:0 0 9px; font-size:14.5px;
@@ -156,9 +165,9 @@ code{font:.86em/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
 /* ---------- Stats ---------- */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:10px}
 .stats div{background:var(--surf2); border:1px solid var(--line); border-radius:11px; padding:13px 14px}
-.stats .lab{display:block; font-size:10.5px; font-weight:750; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
-.stats .val{display:block; font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:4px; line-height:1.15}
-.stats .note{display:block; font-size:12.5px; color:var(--mut); margin-top:2px; line-height:1.4}
+.stats .lab{font-size:10.5px; font-weight:750; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+.stats .val{font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:4px; line-height:1.15}
+.stats .note{font-size:12.5px; color:var(--mut); margin-top:2px; line-height:1.4}
 .stats .val.g{color:var(--good)} .stats .val.r{color:var(--crit)} .stats .val.a{color:var(--warn)}
 
 /* ---------- Bar chart ---------- */
@@ -246,20 +255,93 @@ footer{border-top:1px solid var(--line); margin-top:26px; padding-top:18px;
   .point,.col li,.gloss dd,.tl-node span{color:#444}
 }
 
-.proj{display:block;background:var(--surf2);border:1px solid var(--line);border-radius:12px;
- padding:15px 17px;margin:0 0 10px;color:inherit;text-decoration:none}
-.proj:hover{border-color:var(--acc);text-decoration:none}
-.proj b{display:block;font-size:17px;font-weight:720;letter-spacing:-.015em;color:#fff}
-.proj .t{display:block;color:var(--mut);font-size:14px;line-height:1.5;margin:4px 0 10px}
-.proj .m{display:flex;flex-wrap:wrap;gap:6px}
-.prog{height:5px;background:var(--surf);border-radius:99px;margin:0 0 10px;overflow:hidden}
-.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--s3),var(--s1));border-radius:99px}
-</style></head><body><div class="wrap">
-<header class="hero"><div class="eyebrow">Private index</div><h1>Project Briefs</h1>
-<div class="hero-meta"><span class="pill info"><span class="dot"></span>2 projects</span></div></header>
-<section class="card"><h2>All briefs — share the individual links, not this page</h2>
-<a class="proj" href="memecoin-bot-245eec/"><b>Meme Coin Trading Bot</b><span class="t"></span><span class="prog"><i style="width:0%"></i></span><span class="m"><span class="pill stop"><span class="dot"></span>Blocked</span><span class="pill"><span class="dot"></span>0% · v1 · Sep 1, 2026</span></span></a>
-<a class="proj" href="summarize-skill-447abf/"><b>The /summarize Command</b><span class="t">Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You&#x27;re caught up in a min</span><span class="prog"><i style="width:70%"></i></span><span class="m"><span class="pill ok"><span class="dot"></span>Working</span><span class="pill"><span class="dot"></span>70% · v3 · Sep 1, 2026</span></span></a>
-</section>
-<footer>Generated by the <code>/summarize</code> Claude Code skill.</footer>
-</div></body></html>
+</style>
+</head>
+<body>
+<div class="arch">📦 <b>This is version 2</b>, saved Sep 1, 2026. &nbsp;<a href="../">See the latest version →</a></div>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">60-second catch-up &nbsp;·&nbsp; v2</div>
+    <h1>The /summarize Command</h1>
+    <div class="hero-meta">
+      <span class="pill ok"><span class="dot"></span>Working</span>
+      <span class="pill"><span class="dot"></span>Updated Sep 1, 2026</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <p class="point">Everett types one word in his AI coding tool and it turns a whole project into a page like this one. He texts the link. You&#x27;re caught up in a minute instead of a phone call.</p>
+    <div class="goal"><span class="fl">🏁</span><div><span class="gt">Where this is headed</span><span class="gv">Nobody ever has to be caught up by text message again.</span></div></div>
+  </section>
+
+  <section class="card tlwrap">
+    <h2>The road to the goal</h2>
+    <div class="tl-hero">
+      <span class="tl-pct">70%</span>
+      <span class="tl-sub">of the way there<br>3 of 4 pieces proven.</span>
+    </div>
+    <div class="tl" style="--pct:70%;--pctc:70%">
+      <div class="tl-rail"><div class="tl-fill"></div></div>
+      <div class="tl-you">You are here</div>
+      <div class="tl-nodes">
+        <div class="tl-node done first" style="left:0.0%"><i></i><span>Idea</span></div>
+        <div class="tl-node done" style="left:25.0%"><i></i><span>Built it</span></div>
+        <div class="tl-node done" style="left:50.0%"><i></i><span>Live on the web</span></div>
+        <div class="tl-node now" style="left:75.0%"><i></i><span>Real project test</span></div>
+        <div class="tl-node goal last" style="left:100.0%"><i>🏁</i><span>Everyone stays caught up</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>The numbers</h2>
+    <div class="stats"><div><span class="lab">Cost to run</span><span class="val g">$0</span><span class="note">Free hosting, forever</span></div><div><span class="lab">Type to link</span><span class="val ">~30s</span><span class="note">One command</span></div><div><span class="lab">New accounts</span><span class="val g">0</span><span class="note">Uses your GitHub</span></div><div><span class="lab">Versions kept</span><span class="val ">All</span><span class="note">Nothing overwritten</span></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Done vs. left</h2>
+    <div class="cols">
+      <div class="col yes">
+        <h3><span>✅ Already working</span><em>6</em></h3>
+        <ul><li>Type /summarize in any chat</li><li>Gives back a real web link</li><li>No login, opens on any phone</li><li>Old versions saved forever</li><li>Hidden from Google</li><li>Costs nothing to run</li></ul>
+      </div>
+      <div class="col no">
+        <h3><span>⬜ Still to do</span><em>3</em></h3>
+        <ul><li>Never used on a real messy project</li><li class="block">Nobody gets told when it updates</li><li>Format not yet approved by a real reader</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🙋 What happens next</h2>
+    <ol class="next"><li><span class="who">Everett</span>Run /summarize on the meme coin bot — the real test.</li><li><span class="who">You</span>Open this on your phone. Did 60 seconds actually do it?</li><li><span class="who">Decision</span>Auto-email people on updates, or just re-text the link?</li></ol>
+  </section>
+
+  <section class="card">
+    <h2>Want the details?</h2>
+    <a class="repo" href="https://github.com/mtcdigital/project-briefs" target="_blank" rel="noopener"><span>📂</span><span>All the code and files<br><span class="rl">mtcdigital/project-briefs</span></span></a>
+  </section>
+
+  <section class="card">
+    <h2>📖 Words you might not know</h2>
+    <dl class="gloss"><div><dt>Skill</dt><dd>A saved instruction sheet for the AI. Typing /summarize loads it and the AI follows the steps, like a recipe card.</dd></div><div><dt>Unlisted</dt><dd>Not password-locked, but not findable either. Hidden from Google, and the web address has random letters so it can&#x27;t be guessed.</dd></div></dl>
+  </section>
+
+  <details class="vhbox">
+    <summary>🕓 Version history — 3 versions</summary>
+    <ul class="vh">
+      <li><span class="vn">v3</span><div class="vb"><a href="../"><b>Newest version</b></a> — Rebuilt the whole format: shorter, visual, timeline-first. Same link, new look.<div class="vd">Sep 1, 2026</div></div></li>
+      <li><span class="vn now">v2</span><div class="vb"><b>You are here</b> — Rebuilt the whole format: shorter, visual, timeline-first. Same link, new look.<div class="vd">Sep 1, 2026</div></div></li>
+      <li><span class="vn">v1</span><div class="vb"><a href="../versions/v1-2026-09-01.html">First version — built the whole system today: command, hosting, version history.</a><div class="vd">Sep 1, 2026</div></div></li>
+    </ul>
+  </details>
+
+  <footer>
+    Version 2 · Sep 1, 2026 · this link always shows the newest version.<br>
+    Unlisted page — not in Google, but anyone with the link can read it.
+  </footer>
+
+</div>
+</body>
+</html>
