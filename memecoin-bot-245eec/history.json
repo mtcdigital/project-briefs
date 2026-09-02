@@ -1,0 +1,19 @@
+{
+  "slug": "memecoin-bot-245eec",
+  "title": "Meme Coin Trading Bot",
+  "created": null,
+  "versions": [
+    {
+      "n": 1,
+      "date": "2026-09-01",
+      "date_human": "Sep 1, 2026",
+      "changed": "First version. Found the backtests were measuring 5-month outcomes against a 4-hour strategy, and that 96% of the tweet data was synthetic test data. Also found the one real signal: coins with an existing market were 17x more likely to succeed than fresh launches. Bot paused pending a direction decision.",
+      "file": "v1-2026-09-01.html",
+      "title": "Meme Coin Trading Bot",
+      "status": "Blocked"
+    }
+  ],
+  "tagline": "A bot that reads crypto Twitter and is supposed to buy meme coins on its own. The machine works; the strategy is the part we can't prove yet.",
+  "status": "Blocked",
+  "status_kind": "stop"
+}
