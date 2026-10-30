@@ -1,2 +1,4 @@
-// Paste the Apps Script web app URL between the quotes, then save.
+// Where Edward's approval goes when he taps Send. kind: formsubmit | ntfy | generic
 window.AXIS_ENDPOINT = "";
+window.AXIS_ENDPOINT_KIND = "formsubmit";
+window.AXIS_CC = "";
