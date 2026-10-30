@@ -376,15 +376,26 @@ document.getElementById('send').addEventListener('click', async () => {
   const btn = document.getElementById('send'); const box = document.getElementById('done');
   S.name = document.getElementById('who').value.trim() || S.name; save();
   const sum = summary(); const c = counts(); S.lastSummary = sum; save();
-  btn.disabled = true; btn.textContent = 'Sending...';
   const mailto = 'mailto:' + EVERETT + '?subject=' + encodeURIComponent('Axis copy approval: confirmed') + '&body=' + encodeURIComponent(sum.slice(0, 1800));
+  const short = 'Axis copy approval: confirmed. ' + (c.flagged ? c.flagged + ' flagged, ' + c.ok + ' approved. ' : 'Everything approved (' + c.ok + ' pieces). ') + (c.flagged ? 'Flags: ' + DATA.items.filter(i => fl(i.id).on).map(i => i.title + (fl(i.id).comment.trim() ? ' (' + fl(i.id).comment.trim() + ')' : '')).join('; ') : '');
+  const smsto = 'sms:+12489128836?&body=' + encodeURIComponent(short.slice(0, 900));
+  const acts = (primary) => `<div class="acts"><a class="${primary === 'mail' ? 'cta' : 'btn2'}" href="${mailto}">Email Everett</a><a class="btn2" href="${smsto}">Text Everett</a><button class="btn2" type="button" id="copy">Copy summary</button></div><pre class="sum" id="sumbox">${h(sum)}</pre>`;
+  if (!CFG.endpoint) {
+    S.sentAt = new Date().toISOString(); save();
+    box.className = 'done show ok'; box.innerHTML = `<h3>&#10003; One more tap</h3><p>Your email app should open with your answers filled in. Hit <b>Send</b> there and you are done.</p><p style="margin-top:.5rem">If it did not open, tap Email Everett below, or Text Everett.</p>${acts('mail')}`;
+    btn.textContent = 'Open my email again'; btn.disabled = false;
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' }); wireCopy();
+    setTimeout(() => { window.location.href = mailto; }, 400);
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Sending...';
   try {
     await send(sum, c);
     S.sentAt = new Date().toISOString(); save();
-    box.className = 'done show ok'; box.innerHTML = `<h3>&#10003; Sent to Everett</h3><p>${c.flagged ? c.flagged + ' flagged piece' + (c.flagged > 1 ? 's' : '') + ' will come back to you revised. Everything else is approved.' : 'Everything is approved. Nice.'}</p><p style="margin-top:.5rem">One more thing: reply <b>confirmed</b> to Everett's email so it is in writing from you too.</p><div class="acts"><a class="btn2" href="${mailto}">Email Everett</a><button class="btn2" type="button" id="copy">Copy summary</button></div><pre class="sum" id="sumbox">${h(sum)}</pre>`;
+    box.className = 'done show ok'; box.innerHTML = `<h3>&#10003; Sent to Everett</h3><p>${c.flagged ? c.flagged + ' flagged piece' + (c.flagged > 1 ? 's' : '') + ' will come back to you revised. Everything else is approved.' : 'Everything is approved. Nice.'}</p><p style="margin-top:.5rem">One more thing: reply <b>confirmed</b> to Everett's email so it is in writing from you too.</p>${acts('none')}`;
     btn.textContent = 'Sent';
   } catch (err) {
-    box.className = 'done show bad'; box.innerHTML = `<h3>Could not send automatically</h3><p>No problem. Tap the button and your email app opens with your answers already typed in. Then hit send.</p><div class="acts"><a class="cta" href="${mailto}">Email it to Everett instead</a><button class="btn2" type="button" id="copy">Copy summary</button></div><pre class="sum" id="sumbox">${h(sum)}</pre>`;
+    box.className = 'done show bad'; box.innerHTML = `<h3>Could not send automatically</h3><p>No problem. Tap Email Everett and your email app opens with your answers already typed in. Then hit send.</p>${acts('mail')}`;
     btn.disabled = false; btn.textContent = 'Try again';
   }
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
