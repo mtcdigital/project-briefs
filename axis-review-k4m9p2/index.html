@@ -298,7 +298,7 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
 <footer class="bot"><div class="in gut">
   <button id="prev">‹ Back</button>
   <div class="prog" aria-hidden="true"><div id="bar"></div></div>
-  <span class="pos" id="pos"></span>
+  <span class="pos" id="pos" hidden></span>
   <button id="next" class="main-btn">Next ›</button>
 </div></footer>
 <div class="toast" id="toast" role="status"></div>
@@ -311,7 +311,7 @@ const STEPS=[
  {id:"video",t:"Video script",d:"Shoot Nov 4",m:5,items:["video"]},
  {id:"setup",t:"Live setup",d:"Yelp, Apple, Google, website",m:10},
  {id:"content",t:"Content approval",d:"Google ad, FAQs, missed-call text",m:6,items:["ads","faq","text"]},
- {id:"wrap",t:"Wrap-up",d:"Recap email",m:2}];
+ {id:"wrap",t:"Recap",d:"Recap email",m:2,hide:true}];
 const APPR=[{id:"flyer",appr:"Lunch & Learn flyer"},{id:"slides",appr:"Lunch & Learn slide deck"},{id:"video",appr:"Homepage video script"},{id:"ads",appr:"Google Ads wording"},{id:"faq",appr:"Website FAQs (all 10)"},{id:"text",appr:"Missed-call text-back"}];
 const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"],["site","Website developer contact and code access"]];
 const $=id=>document.getElementById(id);
@@ -366,12 +366,12 @@ function stepStatus(s){
 }
 const LABEL={up:"Approved",ch:"Change noted",done:"Done","":"To do"};
 function paintChips(){
-  $("chips").innerHTML=STEPS.map((s,i)=>`<button class="chip ${i===cur?"on":""}" data-i="${i}">${i?`<span class="k">${i}</span>`:""}${esc(s.t)}${i?`<span class="st ${stepStatus(s)}"></span>`:""}</button>`).join("");
+  $("chips").innerHTML=STEPS.map((s,i)=>s.hide?"":`<button class="chip ${i===cur?"on":""}" data-i="${i}">${i?`<span class="k">${i}</span>`:""}${esc(s.t)}${i?`<span class="st ${stepStatus(s)}"></span>`:""}</button>`).join("");
   $("chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>go(+b.dataset.i));
   const on=$("chips").querySelector(".on");on&&on.scrollIntoView({block:"nearest",inline:"nearest"});
   const up=APPR.filter(s=>stateOf(s.id)==="up").length;
   $("tally").innerHTML=`<b>${up}</b> of ${APPR.length} approved`;
-  $("agenda").innerHTML=STEPS.slice(1).map((s,i)=>{const st=stepStatus(s);return `<button class="ag" data-i="${i+1}"><span class="k">${i+1}</span><b>${esc(s.t)}</b><span class="m">${s.m} min</span><small>${esc(s.d)}</small><span class="badge ${st}">${LABEL[st]}</span></button>`;}).join("");
+  $("agenda").innerHTML=STEPS.slice(1).map((s,i)=>{if(s.hide)return "";const st=stepStatus(s);return `<button class="ag" data-i="${i+1}"><span class="k">${i+1}</span><b>${esc(s.t)}</b><span class="m">${s.m} min</span><small>${esc(s.d)}</small><span class="badge ${st}">${LABEL[st]}</span></button>`;}).join("");
   $("agenda").querySelectorAll(".ag").forEach(b=>b.onclick=()=>go(+b.dataset.i));
 }
 
