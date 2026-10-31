@@ -46,6 +46,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visibl
 @keyframes in{from{transform:translateY(6px)}to{transform:none}}
 @media(prefers-reduced-motion:reduce){.slide{animation:none}}
 .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:600}
+.subh{font-size:20px;margin-top:12px;padding-top:18px;border-top:1px solid var(--line)}
 .slide h2{font-size:clamp(26px,3.6vw,40px);line-height:1.08;margin-top:6px}
 .sub{color:var(--mute);font-size:17px;max-width:68ch;margin:8px 0 0}
 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
@@ -182,18 +183,16 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
   <div class="agenda" id="agenda"></div>
 </section>
 
-<section class="slide gut" data-id="flyer" hidden>
-  <div><div class="eyebrow">Lunch &amp; Learn #1</div><h2>Flyer</h2></div>
+<section class="slide gut" data-id="ll" hidden>
+  <div><div class="eyebrow">Wed Nov 11, 12:00 pm</div><h2>Lunch &amp; Learn materials</h2></div>
+  <h3 class="subh">Flyer</h3>
   <div class="two">
     <div class="flyer"><img src="flyer.png" alt="Lunch and Learn flyer, Wednesday November 11"></div>
     <div style="display:grid;gap:16px">
       <div class="panel appr" data-appr="flyer"></div>
     </div>
   </div>
-</section>
-
-<section class="slide gut" data-id="slides" hidden>
-  <div><div class="eyebrow">Lunch &amp; Learn #1</div><h2>Slide deck</h2></div>
+  <h3 class="subh">Slide deck</h3>
   <div class="two" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">
     <div class="panel deck">
       <div class="main"><img id="slideMain" src="slide-01.png" alt="Slide 1"></div>
@@ -203,29 +202,6 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
     <div style="display:grid;gap:16px">
       <div class="panel appr" data-appr="slides"></div>
     </div>
-  </div>
-</section>
-
-<section class="slide gut" data-id="ads" hidden>
-  <div><div class="eyebrow">Google Ads</div><h2>Google ad</h2></div>
-  <div class="two">
-    <div class="gad">
-      <div class="sp">Sponsored</div>
-      <div class="site"><div class="fav">AX</div><div><div class="nm">Axis Counseling and Psychological Services</div><div class="url">acaps.co › get-started</div></div></div>
-      <div class="hl">Therapist in West Bloomfield | Complimentary Consultation | In Person or Secure Telehealth</div>
-      <div class="ds">Boutique psychology practice in West Bloomfield. In person or telehealth in Michigan. Individual, couples and teen therapy. Psychologist-founded. Complimentary consultation.</div>
-    </div>
-    <div style="display:grid;gap:16px">
-      <div class="panel appr" data-appr="ads"></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide gut" data-id="faq" hidden>
-  <div><div class="eyebrow">Website</div><h2>Website FAQs</h2></div>
-  <div class="two" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
-    <div class="panel faq" id="faqList"></div>
-    <div class="panel appr" data-appr="faq"></div>
   </div>
 </section>
 
@@ -247,35 +223,6 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
   </div>
 </section>
 
-<section class="slide gut" data-id="text" hidden>
-  <div><div class="eyebrow">Spruce · 248-831-0838</div><h2>Missed-call text-back</h2></div>
-  <div class="two">
-    <div class="phone"><div class="from">Axis Counseling · Text Message</div><div class="bub">Sorry we missed your call. We'll get back to you soon. Request your complimentary 15-min consultation here: acaps.co/get-started. For emergencies, call 911 or 988.<br><br>Axis</div></div>
-    <div style="display:grid;gap:16px">
-      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Who returns missed calls</li><li>Office hours</li></ul></div>
-      <div class="panel appr" data-appr="text"></div>
-    </div>
-  </div>
-</section>
-
-<section class="slide gut" data-id="reviews" hidden>
-  <div><div class="eyebrow">Growth plan</div><h2>Reviews plan</h2></div>
-  <div class="ladder">
-    <div class="rung"><div class="s">STEP 1</div><h3>Invite people you know</h3></div>
-    <div class="rung"><div class="s">STEP 2</div><h3>They get real value</h3></div>
-    <div class="rung"><div class="s">STEP 3</div><h3>One QR code at the end</h3></div>
-    <div class="rung"><div class="s">STEP 4</div><h3>Repeat each event</h3></div>
-  </div>
-  <div class="two">
-    <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">Rules</h3><ul class="list"><li>Never ask current or former clients</li><li>No staff or immediate family reviews</li><li>No rewards tied to a review</li><li>Ask for feedback, not for stars</li></ul></div>
-    <div class="panel" style="display:grid;gap:10px">
-      <h3 style="font-size:16px">We will need: 10 to 15 people to invite to Nov 11</h3>
-      <textarea id="invites" aria-label="People to invite" placeholder="Names or offices, one per line" style="min-height:140px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px/1.5 var(--body)"></textarea>
-      
-    </div>
-  </div>
-</section>
-
 <section class="slide gut" data-id="setup" hidden>
   <div><div class="eyebrow">Live, on this call</div><h2>Yelp, Apple Maps, Google Ads, website</h2></div>
   <div class="setup">
@@ -286,6 +233,35 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
   </div>
   <div class="panel">
     <div><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Driver's license or passport</li><li>IRS EIN letter (CP 575 or 147C), PDF or clear photo</li><li>The phone for 248-831-0838</li><li>Apple ID login</li><li>Phone camera for a short face video</li></ul></div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="content" hidden>
+  <div><div class="eyebrow">Ads, website, Spruce</div><h2>Content approval</h2></div>
+  <h3 class="subh">Google ad</h3>
+  <div class="two">
+    <div class="gad">
+      <div class="sp">Sponsored</div>
+      <div class="site"><div class="fav">AX</div><div><div class="nm">Axis Counseling and Psychological Services</div><div class="url">acaps.co › get-started</div></div></div>
+      <div class="hl">Therapist in West Bloomfield | Complimentary Consultation | In Person or Secure Telehealth</div>
+      <div class="ds">Boutique psychology practice in West Bloomfield. In person or telehealth in Michigan. Individual, couples and teen therapy. Psychologist-founded. Complimentary consultation.</div>
+    </div>
+    <div style="display:grid;gap:16px">
+      <div class="panel appr" data-appr="ads"></div>
+    </div>
+  </div>
+  <h3 class="subh">Website FAQs</h3>
+  <div class="two" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+    <div class="panel faq" id="faqList"></div>
+    <div class="panel appr" data-appr="faq"></div>
+  </div>
+  <h3 class="subh">Missed-call text-back</h3>
+  <div class="two">
+    <div class="phone"><div class="from">Axis Counseling · Text Message</div><div class="bub">Sorry we missed your call. We'll get back to you soon. Request your complimentary 15-min consultation here: acaps.co/get-started. For emergencies, call 911 or 988.<br><br>Axis</div></div>
+    <div style="display:grid;gap:16px">
+      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Who returns missed calls</li><li>Office hours</li></ul></div>
+      <div class="panel appr" data-appr="text"></div>
+    </div>
   </div>
 </section>
 
@@ -320,19 +296,15 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
 const FAQ=[["Do you offer online therapy in Michigan?", "Yes. Axis offers secure online therapy (telehealth) for individuals and couples anywhere in Michigan, with the same depth and attentiveness as in-person sessions at our West Bloomfield office. Sessions take place over a private, secure video platform. Request a complimentary 15-minute consultation to find the clinician and format that fit you."], ["Do you offer couples therapy and marriage counseling in West Bloomfield?", "Yes. Axis provides couples therapy and marriage counseling at our West Bloomfield office, serving Bloomfield Hills, Birmingham, Farmington Hills, and Novi, and online throughout Michigan. We help partners understand the patterns behind recurring conflict, improve communication, and rebuild connection. Start with a complimentary 15-minute consultation."], ["Does insurance cover couples therapy?", "It depends on your plan. Many insurance plans cover therapy only when it treats a diagnosed condition for one person, so couples therapy may not be covered. Participation varies by clinician, and private pay is available. Contact us and we can talk through options during your complimentary consultation."], ["Do you work with teenagers?", "Yes. Some Axis clinicians work with adolescents as well as adults, helping teens with anxiety, low mood, stress, self-esteem, and life changes. Sessions are available in person in West Bloomfield or online in Michigan. Parents can request a complimentary 15-minute consultation to find the right clinician."], ["What is the difference between a psychologist and a therapist?", "\"Therapist\" is a broad term for licensed mental health professionals who provide talk therapy, including counselors, social workers, and psychologists. A psychologist typically holds a doctoral degree (PhD or PsyD) with extensive training in assessment and psychotherapy. Our team includes a doctoral-level licensed psychologist and master's-level therapists, and our complimentary consultation helps match you with the right fit."], ["What should I expect at my first therapy session?", "Your first session is mostly a conversation. Your clinician will ask what brings you in, a bit about your history, and what you hope will change, and you can ask about their approach. There is no pressure to share everything at once. Before that, Axis offers a complimentary 15-minute consultation so you can ask questions and see if we are a good fit."], ["How long does therapy take?", "It varies. Some people come for a focused few months to work through a specific concern, while others continue longer to explore deeper patterns. You and your clinician set goals and check in on progress along the way, so the length of therapy is a decision you make together. Weekly sessions are the most common among our clients."], ["Is online therapy as effective as in-person therapy?", "For many people, yes. Research has found telehealth therapy effective for a range of concerns, including anxiety and depression, and many clients value the convenience. Others prefer being in the room. Axis offers both, in our West Bloomfield office and online throughout Michigan, so you can choose what works best for you."], ["Can a psychologist fill out FMLA or disability paperwork?", "Yes. Under the FMLA, clinical psychologists and clinical social workers are among the providers who can certify a serious health condition. At Axis, Dr. Edward L. Jackson, a licensed psychologist, completes FMLA, medical leave, short-term disability, and workplace accommodation paperwork for clients in his ongoing care, based on his clinical judgment. Talk with your clinician about your situation."], ["How much does therapy cost, and can I pay without insurance?", "Axis accepts private pay and works with many insurance providers. We believe cost shouldn't stand in the way of getting the care you need. As part of our commitment to giving back to the community, we may be able to offer reduced-cost care to clients facing financial hardship. Give us a call to discuss your options, or ask about fees during your complimentary 15-minute consultation."]];
 const STEPS=[
  {id:"welcome",t:"Agenda"},
- {id:"flyer",t:"Flyer",d:"Lunch & Learn, Nov 11",m:3,appr:"Lunch & Learn flyer"},
- {id:"slides",t:"Slide deck",d:"12 slides for the talk",m:5,appr:"Lunch & Learn slide deck"},
- {id:"ads",t:"Google Ads",d:"Updated wording",m:3,appr:"Google Ads wording"},
- {id:"faq",t:"FAQs",d:"10 answers for the website",m:5,appr:"Website FAQs (all 10)"},
- {id:"video",t:"Video script",d:"Shoot Nov 4",m:4,appr:"Homepage video script"},
- {id:"text",t:"Missed-call text",d:"Spruce auto-reply",m:1,appr:"Missed-call text-back"},
- {id:"reviews",t:"Reviews plan",d:"Who to invite Nov 11",m:3},
- {id:"setup",t:"Live setup",d:"Yelp, Apple, Google, website",m:9},
+ {id:"ll",t:"Lunch & Learn materials",d:"Flyer and slide deck",m:7,items:["flyer","slides"]},
+ {id:"video",t:"Video script",d:"Shoot Nov 4",m:5,items:["video"]},
+ {id:"setup",t:"Live setup",d:"Yelp, Apple, Google, website",m:10},
+ {id:"content",t:"Content approval",d:"Google ad, FAQs, missed-call text",m:6,items:["ads","faq","text"]},
  {id:"wrap",t:"Wrap-up",d:"Recap email",m:2}];
+const APPR=[{id:"flyer",appr:"Lunch & Learn flyer"},{id:"slides",appr:"Lunch & Learn slide deck"},{id:"video",appr:"Homepage video script"},{id:"ads",appr:"Google Ads wording"},{id:"faq",appr:"Website FAQs (all 10)"},{id:"text",appr:"Missed-call text-back"}];
 const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"],["site","Website developer contact and code access"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-const APPR=STEPS.filter(s=>s.appr);
 let S={items:{},setup:{},invites:""};
 let db=null;const LS="axis-launch-deck";
 function loadLocal(){try{const v=JSON.parse(localStorage.getItem(LS));if(v)S=Object.assign(S,v);}catch(e){}}
@@ -369,7 +341,7 @@ $("prev").onclick=()=>go(cur-1);
 $("next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
 document.addEventListener("keydown",e=>{
   if(/TEXTAREA|INPUT/.test(e.target.tagName))return;
-  if(STEPS[cur].id==="slides"&&(e.key==="ArrowRight"||e.key==="ArrowLeft"))return;
+  if(STEPS[cur].id==="ll"&&(e.key==="ArrowRight"||e.key==="ArrowLeft"))return;
   if(e.key==="ArrowRight"||e.key==="PageDown")go(cur+1);
   if(e.key==="ArrowLeft"||e.key==="PageUp")go(cur-1);
 });
@@ -377,9 +349,8 @@ function fromHash(){const k=STEPS.findIndex(s=>s.id===location.hash.slice(1));go
 window.addEventListener("hashchange",fromHash);
 
 function stepStatus(s){
-  if(s.appr)return stateOf(s.id);
+  if(s.items){const v=s.items.map(stateOf);return v.includes("ch")?"ch":v.every(x=>x==="up")?"up":"";}
   if(s.id==="setup")return SETUP.every(([k])=>S.setup[k])?"done":"";
-  if(s.id==="reviews")return S.invites.trim()?"done":"";
   return "";
 }
 const LABEL={up:"Approved",ch:"Change noted",done:"Done","":"To do"};
@@ -408,8 +379,6 @@ function paintAppr(){document.querySelectorAll("[data-appr]").forEach(el=>el._pa
 // setup + invites
 document.querySelectorAll(".done").forEach(b=>b.onclick=()=>{S.setup[b.dataset.k]=!S.setup[b.dataset.k];write("items/setup",S.setup);paintSetup();paintChips();});
 function paintSetup(){document.querySelectorAll(".done").forEach(b=>{const on=!!S.setup[b.dataset.k];b.classList.toggle("on",on);b.textContent=on?"✓ Done":"Mark done";});}
-$("invites").oninput=e=>{S.invites=e.target.value;write("items/invites",{text:S.invites},700);};
-function paintInvites(){if(document.activeElement!==$("invites"))$("invites").value=S.invites;}
 
 // slide deck viewer
 const N=12;let sc=1;
@@ -437,7 +406,7 @@ function paintWrap(){
 }
 $("copyRecap").onclick=async()=>{const t=recapText();try{await navigator.clipboard.writeText(t);toast("Recap copied");}catch(e){const r=document.createRange();r.selectNodeContents($("recap"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast("Selected, press Cmd+C");}};
 
-function paintAll(){paintAppr();paintSetup();paintInvites();paintChips();if(STEPS[cur].id==="wrap")paintWrap();}
+function paintAll(){paintAppr();paintSetup();paintChips();if(STEPS[cur].id==="wrap")paintWrap();}
 
 // boot
 loadLocal();fromHash();paintAll();
