@@ -120,7 +120,20 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visibl
 .phone .from{text-align:center;color:#8e8e93;font:12px Arial,sans-serif;margin-bottom:14px}
 .bub{background:#3a3a3c;color:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;font:15px/1.4 -apple-system,Arial,sans-serif}
 
-/* reviews ladder */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:980px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.board{grid-template-columns:1fr}}
+.frame{display:grid;gap:10px;align-content:start}
+.sb{width:100%;aspect-ratio:16/9;display:block;background:var(--bg);border:1px solid var(--line);border-radius:10px}
+.sb *{fill:none;stroke:var(--mint);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.sb .g{stroke:var(--mute);stroke-width:.6;stroke-dasharray:2 3;opacity:.6}
+.sb .w{fill:#fff;stroke:none}.sb .lt{fill:var(--bg)}.sb .d{stroke:#0a0f0d}
+.sb text{fill:#0a0f0d;stroke:none;font:700 11px var(--display);letter-spacing:.2em}
+.ft{display:flex;gap:10px;align-items:baseline}
+.ft b{font-family:var(--display);color:var(--mint);font-size:18px;font-variant-numeric:tabular-nums}
+.ft span{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.frame q{font-size:15.5px;line-height:1.5}
+/* ladder */
 .ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:r}
 @media(max-width:860px){.ladder{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.ladder{grid-template-columns:1fr}}
@@ -207,19 +220,17 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
 
 <section class="slide gut" data-id="video" hidden>
   <div><div class="eyebrow">Homepage video · Wed Nov 4, 12:00 pm</div><h2>Video script</h2></div>
-  <div class="two" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
-    <div class="panel" style="display:grid;gap:16px">
-      <div class="beat"><span class="who">0:00 · Edward on camera</span><q>Hi, I'm Dr. Edward Jackson, a licensed psychologist and director of Axis Counseling and Psychological Services in West Bloomfield.</q></div>
-      <div class="beat"><span class="who">0:07 · Walking in, therapy rooms, refreshments</span><q>We built Axis around a simple belief: therapy should begin with the person, not a diagnosis. You can be successful and still struggle with anxiety. You can be surrounded by people and still feel alone.</q></div>
-      <div class="beat"><span class="who">0:22 · Edward in session (stand-in client)</span><q>Here, we take the time to understand the whole person: your relationships, your patterns, your strengths, and the life you want to build.</q></div>
-      <div class="beat"><span class="who">0:32 · Edward on camera</span><q>Our team works with individuals, couples, and teens, in person or online anywhere in Michigan. You don't have to wait until life falls apart to ask for help.</q></div>
-      <div class="beat"><span class="who">0:44 · The whole team, waving</span><q>If something is getting in the way of the life you want, maybe it's time to talk. Start with a complimentary 15-minute consultation.</q></div>
-      <div class="beat"><span class="who">0:52 · Fade to white, Axis logo</span><q>We're here when you're ready.</q></div>
-    </div>
-    <div style="display:grid;gap:16px">
-      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Axis logo file</li><li>A staff member to sit in as the client</li><li>All clinicians on site for the team shot</li><li>Signed video releases</li><li>Refreshments set out</li><li>Rooms and hallway clear, 12:00 to 1:30</li></ul></div>
-      <div class="panel appr" data-appr="video"></div>
-    </div>
+  <div class="board">
+<div class="panel frame"><svg class="sb" viewBox="0 0 160 90" aria-hidden="true"><path d="M24 90V70h12v20M30 70c-6-8-8-16-2-22M30 70c4-10 10-14 14-14M30 70c-2-10 0-18 6-22"/><path d="M118 20h26v50h-26zM118 37h26M118 54h26M123 20v17M128 20v17M136 37v17M124 54v16"/><circle cx="80" cy="36" r="11"/><path d="M58 90c0-26 44-26 44 0"/><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:00</b><span>Edward on camera</span></div><q>Hi, I'm Dr. Edward Jackson, a licensed psychologist and director of Axis Counseling and Psychological Services in West Bloomfield.</q></div>
+<div class="panel frame"><svg class="sb" viewBox="0 0 160 90" aria-hidden="true"><path d="M0 0l58 28M160 0l-58 28M0 90l58-30M160 90l-58-30M58 28h44v32H58z"/><path d="M14 22v52l26-10V34z"/><path d="M118 72h34M122 72v18M148 72v18"/><path d="M124 72v-8h6v8M134 72v-10h6v10M144 72v-6h4v6"/><path d="M62 12q18-8 36 0" /><path d="M94 9l4 3-5 2"/><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:07</b><span>Walk in, therapy rooms, refreshments</span></div><q>We built Axis around a simple belief: therapy should begin with the person, not a diagnosis. You can be successful and still struggle with anxiety. You can be surrounded by people and still feel alone.</q></div>
+<div class="panel frame"><svg class="sb" viewBox="0 0 160 90" aria-hidden="true"><circle cx="115" cy="36" r="8"/><path d="M101 66c0-18 28-18 28 0v6h-28zM98 72h34M102 72v18M128 72v18"/><circle cx="48" cy="52" r="15"/><path d="M14 90c0-30 68-30 68 0"/><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:22</b><span>Edward in session (stand-in client)</span></div><q>Here, we take the time to understand the whole person: your relationships, your patterns, your strengths, and the life you want to build.</q></div>
+<div class="panel frame"><svg class="sb" viewBox="0 0 160 90" aria-hidden="true"><path d="M24 90V70h12v20M30 70c-6-8-8-16-2-22M30 70c4-10 10-14 14-14M30 70c-2-10 0-18 6-22"/><path d="M118 20h26v50h-26zM118 37h26M118 54h26M123 20v17M128 20v17M136 37v17M124 54v16"/><circle cx="80" cy="36" r="11"/><path d="M58 90c0-26 44-26 44 0"/><path class="lt" d="M40 76h80v9H40z"/><path d="M46 80.5h40"/><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:32</b><span>Edward on camera</span></div><q>Our team works with individuals, couples, and teens, in person or online anywhere in Michigan. You don't have to wait until life falls apart to ask for help.</q></div>
+<div class="panel frame"><svg class="sb" viewBox="0 0 160 90" aria-hidden="true"><circle cx="36" cy="42" r="6"/><path d="M26 72c0-20 20-20 20 0"/><path d="M44 60l5-14"/><circle cx="58" cy="42" r="6"/><path d="M48 72c0-20 20-20 20 0"/><path d="M66 60l5-14"/><circle cx="80" cy="42" r="6"/><path d="M70 72c0-20 20-20 20 0"/><path d="M88 60l5-14"/><circle cx="102" cy="42" r="6"/><path d="M92 72c0-20 20-20 20 0"/><path d="M110 60l5-14"/><circle cx="124" cy="42" r="6"/><path d="M114 72c0-20 20-20 20 0"/><path d="M132 60l5-14"/><path d="M8 72h144"/><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:44</b><span>The whole team, waving</span></div><q>If something is getting in the way of the life you want, maybe it's time to talk. Start with a complimentary 15-minute consultation.</q></div>
+<div class="panel frame"><svg class="sb wh" viewBox="0 0 160 90" aria-hidden="true"><rect class="w" x="0" y="0" width="160" height="90"/><circle class="d" cx="80" cy="38" r="12"/><path class="d" d="M74 44l6-14 6 14M76 40h8"/><text x="80" y="66" text-anchor="middle">AXIS</text><line class="g" x1="55" y1="0" x2="55" y2="90"/><line class="g" x1="105" y1="0" x2="105" y2="90"/></svg><div class="ft"><b>0:52</b><span>Fade to white, Axis logo</span></div><q>We're here when you're ready.</q></div>
+  </div>
+  <div class="two">
+    <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Axis logo file</li><li>A staff member to sit in as the client</li><li>All clinicians on site for the team shot</li><li>Signed video releases</li><li>Refreshments set out</li><li>Rooms and hallway clear, 12:00 to 1:30</li></ul></div>
+    <div class="panel appr" data-appr="video"></div>
   </div>
 </section>
 
