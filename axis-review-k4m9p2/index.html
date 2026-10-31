@@ -149,6 +149,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visibl
 .su .who{color:var(--mute);font-size:14px;margin:4px 0 10px}
 .su ol{margin:0 0 14px;padding-left:18px;display:grid;gap:4px}
 .done{all:unset;cursor:pointer;display:inline-flex;gap:8px;align-items:center;font-weight:600;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel2)}
+.fld{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:16px var(--body);margin-top:10px}
 .done.on{background:var(--mint);color:#04120b;border-color:var(--mint)}
 
 /* wrap */
@@ -276,6 +277,16 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
   </div>
 </section>
 
+<section class="slide gut" data-id="calls" hidden>
+  <div><div class="eyebrow">Spruce · 248-831-0838</div><h2>Call Handling</h2></div>
+  <div class="setup">
+    <div class="panel su"><h3>Shiloh's call hours</h3><input class="fld" id="call-hours" placeholder="e.g. Mon to Fri, 9 to 5"></div>
+    <div class="panel su"><h3>Shiloh's phone number</h3><input class="fld" id="call-phone" placeholder="(000) 000-0000" inputmode="tel"></div>
+    <div class="panel su"><h3>Edward on the Spruce app</h3><ol><li>Download Spruce on his phone</li><li>Sign in, turn on call notifications</li></ol><button class="done" data-k="edapp">Mark done</button></div>
+    <div class="panel su"><h3>Shiloh on the Spruce app</h3><ol><li>Invite Shiloh as a teammate</li><li>Download Spruce, sign in, turn on call notifications</li><li>Calls to 248-831-0838 ring Edward and Shiloh</li></ol><button class="done" data-k="shapp">Mark done</button></div>
+  </div>
+</section>
+
 <section class="slide gut" data-id="wrap" hidden>
   <div><div class="eyebrow">Wrap-up</div><h2>Summary</h2></div>
   <div class="two">
@@ -311,8 +322,10 @@ const STEPS=[
  {id:"video",t:"Video script",d:"Shoot Nov 4",m:5,items:["video"]},
  {id:"setup",t:"Live setup",d:"Yelp, Apple, Google, website",m:10},
  {id:"content",t:"Content approval",d:"Google ad, FAQs, missed-call text",m:6,items:["ads","faq","text"]},
+ {id:"calls",t:"Call Handling",d:"Shiloh's hours, Spruce app",m:5},
  {id:"wrap",t:"Recap",d:"Recap email",m:2,hide:true}];
 const APPR=[{id:"flyer",appr:"Lunch & Learn flyer"},{id:"slides",appr:"Lunch & Learn slide deck"},{id:"video",appr:"Homepage video script"},{id:"ads",appr:"Google Ads wording"},{id:"faq",appr:"Website FAQs (all 10)"},{id:"text",appr:"Missed-call text-back"}];
+const CALLS=[["edapp","Edward set up on the Spruce app"],["shapp","Shiloh set up on the Spruce app"]];
 const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"],["site","Website developer contact and code access"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -361,6 +374,7 @@ window.addEventListener("hashchange",fromHash);
 
 function stepStatus(s){
   if(s.items){const v=s.items.map(stateOf);return v.includes("ch")?"ch":v.every(x=>x==="up")?"up":"";}
+  if(s.id==="calls")return CALLS.every(([k])=>S.setup[k])&&S.setup.hours&&S.setup.phone?"done":"";
   if(s.id==="setup")return SETUP.every(([k])=>S.setup[k])?"done":"";
   return "";
 }
@@ -389,7 +403,8 @@ function paintAppr(){document.querySelectorAll("[data-appr]").forEach(el=>el._pa
 
 // setup + invites
 document.querySelectorAll(".done").forEach(b=>b.onclick=()=>{S.setup[b.dataset.k]=!S.setup[b.dataset.k];write("items/setup",S.setup);paintSetup();paintChips();});
-function paintSetup(){document.querySelectorAll(".done").forEach(b=>{const on=!!S.setup[b.dataset.k];b.classList.toggle("on",on);b.textContent=on?"✓ Done":"Mark done";});}
+["hours","phone"].forEach(k=>{$("call-"+k).oninput=e=>{S.setup[k]=e.target.value;write("items/setup",S.setup,700);paintChips();};});
+function paintSetup(){["hours","phone"].forEach(k=>{const el=$("call-"+k);if(document.activeElement!==el)el.value=S.setup[k]||"";});document.querySelectorAll(".done").forEach(b=>{const on=!!S.setup[b.dataset.k];b.classList.toggle("on",on);b.textContent=on?"✓ Done":"Mark done";});}
 
 // slide deck viewer
 const N=12;let sc=1;
@@ -406,12 +421,13 @@ $("faqList").innerHTML=FAQ.map(([q,a],i)=>`<details><summary><span class="n">${i
 // wrap-up
 function recapText(){
   const lines=APPR.map(s=>{const it=S.items[s.id]||{};return it.v==="up"?`- ${s.appr}: approved`:it.v==="ch"?`- ${s.appr}: change requested: ${(it.note||"").trim()||"see notes"}`:`- ${s.appr}: still to review`;});
-  const live=SETUP.filter(([k])=>S.setup[k]).map(([,t])=>"- "+t);
+  const live=SETUP.concat(CALLS).filter(([k])=>S.setup[k]).map(([,t])=>"- "+t);
+  if(S.setup.hours)live.push("- Shiloh's call hours: "+S.setup.hours);
   return `Subject: Axis: summary of today's review\n\nHi Edward,\n\nThank you for your time today. Here is a summary of what we covered:\n\n${lines.join("\n")}\n${live.length?"\nCompleted together:\n"+live.join("\n")+"\n":""}\nA quick reply confirming this summary is all we need for our records. Any requested changes will be made and sent to you before they go live.\n\nNext: the video and photo shoot is Wednesday, November 4 at noon, and the Lunch & Learn is Wednesday, November 11 at noon.\n\nThank you,\nEverett\nMTC Digital LLC\neverett@mtcdigitalservices.com\n248-912-8836`;
 }
 function paintWrap(){
   const rows=APPR.map(s=>{const v=stateOf(s.id);return [s.appr,v||"no",v==="up"?"Approved":v==="ch"?"Change noted":"Still to review"];})
-   .concat(SETUP.map(([k,t])=>[t.replace(" claimed","").replace(" submitted",""),S.setup[k]?"done":"no",S.setup[k]?"Done":"Not yet"]));
+   .concat(SETUP.concat(CALLS).map(([k,t])=>[t.replace(" claimed","").replace(" submitted",""),S.setup[k]?"done":"no",S.setup[k]?"Done":"Not yet"]));
   $("sum").innerHTML=rows.map(([l,c,t])=>`<div class="row"><span>${esc(l)}</span><span class="v ${c}">${t}</span></div>`).join("");
   $("recap").textContent=recapText();
 }
