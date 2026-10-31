@@ -1,0 +1,465 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>Axis Launch Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: a presenter deck. Fixed top bar with step chips, one slide on stage, prev/next bar at the bottom. Dark only, MTC Digital look. */
+:root{
+  --bg:#0a0f0d;--panel:#121a17;--panel2:#18221e;--line:#25322d;
+  --ink:#eaf2ef;--mute:#93a49d;--mint:#5ef2b4;--mintd:#173d2f;
+  --amber:#ffc56b;--amberd:#3f3015;--blue:#8ab4ff;
+  --display:Syne,"Avenir Next",system-ui,sans-serif;--body:Outfit,"Helvetica Neue",system-ui,sans-serif;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);display:flex;flex-direction:column;overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+button{font:600 14px var(--body);color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 16px;cursor:pointer}
+button:hover{border-color:var(--mint)}
+button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* top bar */
+.top{flex:none;border-bottom:1px solid var(--line);background:var(--bg)}
+.top .in{display:flex;align-items:center;gap:14px;padding-block:10px;max-width:1240px;margin:0 auto}
+.top img{width:28px;height:28px;border-radius:7px}
+.brand{font-family:var(--display);font-weight:700;font-size:15px;white-space:nowrap}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font:500 13px var(--body);padding:6px 11px;border-radius:99px;background:transparent;border:1px solid var(--line);color:var(--mute);display:flex;gap:6px;align-items:center}
+.chip .k{font-family:var(--display);font-weight:800;color:var(--mute)}
+.chip.on{background:var(--mintd);border-color:var(--mint);color:var(--ink)}
+.chip.on .k{color:var(--mint)}
+.chip .st{width:8px;height:8px;border-radius:99px;background:var(--line)}
+.st.up,.st.done{background:var(--mint)}.st.ch{background:var(--amber)}
+.tally{font-size:13px;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tally b{color:var(--mint)}
+.sync{font-size:12px;color:var(--mute);white-space:nowrap}
+@media(max-width:720px){.brand,.sync{display:none}}
+
+/* stage */
+.stage{flex:1;min-height:0;overflow-y:auto}
+.slide{max-width:1240px;margin:0 auto;padding-block:28px 40px;display:flex;flex-direction:column;gap:22px;animation:in .25s ease}
+@keyframes in{from{transform:translateY(6px)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){.slide{animation:none}}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:600}
+.slide h2{font-size:clamp(26px,3.6vw,40px);line-height:1.08;margin-top:6px}
+.sub{color:var(--mute);font-size:17px;max-width:68ch;margin:8px 0 0}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}
+.list{margin:0;padding-left:18px;display:grid;gap:6px}
+.facts{display:grid;gap:10px}
+.fact{display:grid;grid-template-columns:110px 1fr;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.fact:last-child{border:0;padding:0}
+.fact .l{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+@media(max-width:520px){.fact{grid-template-columns:1fr;gap:2px}}
+
+/* approval control */
+.appr{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.appr .up.on{background:var(--mint);color:#04120b;border-color:var(--mint)}
+.appr .ch.on{background:var(--amberd);color:var(--amber);border-color:var(--amber)}
+.appr textarea{flex-basis:100%;min-height:80px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px/1.5 var(--body);resize:vertical}
+.appr .saved{font-size:12px;color:var(--mute)}
+
+/* agenda */
+.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.ag{all:unset;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:start}
+.ag:hover{border-color:var(--mint)}
+.ag .k{font-family:var(--display);font-weight:800;font-size:22px;color:var(--mint);grid-row:span 2;line-height:1}
+.ag b{font-family:var(--display);font-size:16px}
+.ag small{color:var(--mute);font-size:13.5px;grid-column:2}
+.ag .m{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.badge{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;grid-column:2;justify-self:start;margin-top:6px;background:var(--panel2);color:var(--mute)}
+.badge.up,.badge.done{background:var(--mintd);color:var(--mint)}.badge.ch{background:var(--amberd);color:var(--amber)}
+
+/* media */
+.flyer img{width:100%;border-radius:12px;display:block;border:1px solid var(--line)}
+.deck .main{aspect-ratio:16/9;max-width:100%;background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.deck .main img{width:100%;height:100%;object-fit:contain;display:block}
+.deck .ctrl{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px}
+.thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:10px}
+.thumbs img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border:2px solid transparent;cursor:pointer;opacity:.6}
+.thumbs img.on{border-color:var(--mint);opacity:1}
+.flag{background:var(--amberd);border:1px solid #6b5320;color:var(--amber);border-radius:12px;padding:10px 14px;font-size:14.5px}
+
+/* google ad mock (Google's own colors on purpose) */
+.gad{background:#fff;color:#202124;border-radius:14px;padding:20px 22px;font-family:Arial,Helvetica,sans-serif}
+.gad .sp{font-size:13px;font-weight:700}
+.gad .site{display:flex;gap:10px;align-items:center;margin:8px 0 4px}
+.gad .fav{width:28px;height:28px;border-radius:50%;background:#e8f0fe;color:#1a3a8f;display:grid;place-items:center;font-weight:700;font-size:12px}
+.gad .nm{font-size:14px}.gad .url{font-size:12px;color:#4d5156}
+.gad .hl{color:#1a0dab;font-size:20px;line-height:1.3;margin:6px 0 4px}
+.gad .ds{color:#4d5156;font-size:14px;line-height:1.55}
+
+/* faq */
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border:0}
+.faq summary{cursor:pointer;list-style:none;padding:12px 2px;font-weight:600;display:flex;gap:12px;align-items:baseline}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .n{font-family:var(--display);color:var(--mint);font-weight:800;width:22px;flex:none}
+.faq summary::after{content:"+";margin-left:auto;color:var(--mint);font-size:20px}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{margin:0 0 14px 34px;color:#cbd9d3;max-width:72ch}
+
+/* script */
+.beat{border-left:3px solid var(--mint);padding:4px 0 4px 14px;display:grid;gap:4px}
+.beat .who{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.beat q{font-size:17px}
+.lines{display:grid;gap:8px}
+.lines div{display:grid;grid-template-columns:150px 1fr;gap:10px}
+@media(max-width:520px){.lines div{grid-template-columns:1fr;gap:0}}
+.alt{opacity:.65}
+
+/* phone */
+.phone{background:#000;border-radius:32px;padding:24px 16px 30px;max-width:340px;border:1px solid var(--line)}
+.phone .from{text-align:center;color:#8e8e93;font:12px Arial,sans-serif;margin-bottom:14px}
+.bub{background:#3a3a3c;color:#fff;border-radius:18px 18px 18px 4px;padding:10px 14px;font:15px/1.4 -apple-system,Arial,sans-serif}
+
+/* reviews ladder */
+.ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:r}
+@media(max-width:860px){.ladder{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.ladder{grid-template-columns:1fr}}
+.rung{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.rung .s{font-family:var(--display);font-weight:800;color:var(--mint);font-size:13px}
+.rung h3{font-size:16px;margin:4px 0}
+.rung p{margin:0;color:var(--mute);font-size:14.5px}
+
+/* setup */
+.setup{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:860px){.setup{grid-template-columns:1fr}}
+.su h3{font-size:18px}
+.su .who{color:var(--mute);font-size:14px;margin:4px 0 10px}
+.su ol{margin:0 0 14px;padding-left:18px;display:grid;gap:4px}
+.done{all:unset;cursor:pointer;display:inline-flex;gap:8px;align-items:center;font-weight:600;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel2)}
+.done.on{background:var(--mint);color:#04120b;border-color:var(--mint)}
+
+/* wrap */
+.sum{display:grid;gap:8px}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.row .v{font-weight:600;white-space:nowrap}
+.v.up,.v.done{color:var(--mint)}.v.ch{color:var(--amber)}.v.no{color:var(--mute)}
+pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font:14px/1.5 var(--body);margin:0;max-height:340px;overflow:auto}
+.main-btn{background:var(--mint);color:#04120b;border-color:var(--mint)}
+.tl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.tl{grid-template-columns:1fr 1fr}}
+.tl div{border-top:2px solid var(--line);padding-top:8px}
+.tl div:first-child{border-color:var(--mint)}
+.tl b{font-family:var(--display);display:block}
+.tl span{color:var(--mute);font-size:14px}
+
+/* bottom bar */
+.bot{flex:none;border-top:1px solid var(--line);background:var(--bg);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bot .in{display:flex;align-items:center;gap:12px;padding-block:10px;max-width:1240px;margin:0 auto}
+.prog{flex:1;height:6px;background:var(--panel2);border-radius:99px;overflow:hidden}
+.prog div{height:100%;background:var(--mint);transition:width .3s}
+.pos{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--mint);color:#04120b;font-weight:600;padding:9px 18px;border-radius:99px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head><body>
+
+<header class="top"><div class="in gut">
+  <img src="mtc-logo.png" alt="MTC Digital">
+  <span class="brand">Axis Launch Review</span>
+  <nav class="chips" id="chips" aria-label="Agenda"></nav>
+  <span class="tally" id="tally"></span>
+  <span class="sync" id="sync"></span>
+</div></header>
+
+<main class="stage" id="stage">
+
+<section class="slide gut" data-id="welcome">
+  <div>
+    <div class="eyebrow">Axis Counseling and Psychological Services · Saturday, October 31</div>
+    <h2>Today's agenda</h2>
+    
+  </div>
+  <div class="agenda" id="agenda"></div>
+</section>
+
+<section class="slide gut" data-id="flyer" hidden>
+  <div><div class="eyebrow">Lunch &amp; Learn #1</div><h2>Flyer</h2></div>
+  <div class="two">
+    <div class="flyer"><img src="flyer.png" alt="Lunch and Learn flyer, Wednesday November 11"></div>
+    <div style="display:grid;gap:16px">
+      <div class="panel appr" data-appr="flyer"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="slides" hidden>
+  <div><div class="eyebrow">Lunch &amp; Learn #1</div><h2>Slide deck</h2></div>
+  <div class="two" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">
+    <div class="panel deck">
+      <div class="main"><img id="slideMain" src="slide-01.png" alt="Slide 1"></div>
+      <div class="ctrl"><button id="sPrev">‹ Slide</button><span class="pos" id="sNum">1 of 12</span><button id="sNext">Slide ›</button></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div style="display:grid;gap:16px">
+      <div class="panel appr" data-appr="slides"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="ads" hidden>
+  <div><div class="eyebrow">Google Ads</div><h2>Google ad</h2></div>
+  <div class="two">
+    <div class="gad">
+      <div class="sp">Sponsored</div>
+      <div class="site"><div class="fav">AX</div><div><div class="nm">Axis Counseling and Psychological Services</div><div class="url">acaps.co › get-started</div></div></div>
+      <div class="hl">Therapist in West Bloomfield | Complimentary Consultation | In Person or Secure Telehealth</div>
+      <div class="ds">Boutique psychology practice in West Bloomfield. In person or telehealth in Michigan. Individual, couples and teen therapy. Psychologist-founded. Complimentary consultation.</div>
+    </div>
+    <div style="display:grid;gap:16px">
+      <div class="panel appr" data-appr="ads"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="faq" hidden>
+  <div><div class="eyebrow">Website</div><h2>Website FAQs</h2></div>
+  <div class="two" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+    <div class="panel faq" id="faqList"></div>
+    <div class="panel appr" data-appr="faq"></div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="video" hidden>
+  <div><div class="eyebrow">Homepage video · shoot Wednesday, Nov 4 at 12:00 pm</div><h2>Video script</h2></div>
+  <div class="two">
+    <div class="panel" style="display:grid;gap:16px">
+      <div class="beat"><span class="who">Opening · Edward, voiceover over office shots</span><q>Starting therapy can be the hardest part. At Axis, we try to make it feel human from the first hello. We're a boutique practice in West Bloomfield, built around one idea: that the relationship with your therapist matters more than anything else.</q></div>
+      <div class="beat"><span class="who">On camera · one line each, three used</span>
+        <div class="lines">
+          <div><b>Karen Brickner</b><span>"I work with adults moving through grief, loss, and the big changes life brings."</span></div>
+          <div><b>Maurice Umejiego</b><span>"I work with teens and adults, and I think the best therapy starts with trust."</span></div>
+          <div><b>Shiloh Torres</b><span>"I help people who are carrying trauma or intense emotions feel understood, not judged."</span></div>
+          <div class="alt"><b>Sailesh Yellayi, alternate</b><span>"Therapy should adapt to you, not the other way around."</span></div>
+        </div></div>
+      <div class="beat"><span class="who">Closing · Edward, voiceover</span><q>Individuals, couples, and teens. In person here in West Bloomfield, or online anywhere in Michigan. It starts with a complimentary 15-minute conversation. When you're ready, we're here.</q></div>
+    </div>
+    <div style="display:grid;gap:16px">
+      <div class="panel facts">
+        <div class="fact"><span class="l">On screen</span><div>Each clinician's name and credential; "In person in West Bloomfield. Online across Michigan."</div></div>
+        <div class="fact"><span class="l">End card</span><div>Axis logo, acaps.co/get-started, 248-831-0838</div></div>
+        </div>
+      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Axis logo file (PDF)</li><li>Signed photo and video releases</li><li>Filming rooms and hallway clear, 12:00 to 1:30</li></ul></div>
+      <div class="panel appr" data-appr="video"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="text" hidden>
+  <div><div class="eyebrow">Spruce · 248-831-0838</div><h2>Missed-call text-back</h2></div>
+  <div class="two">
+    <div class="phone"><div class="from">Axis Counseling · Text Message</div><div class="bub">Sorry we missed your call. We'll get back to you soon. Request your complimentary 15-min consultation here: acaps.co/get-started. For emergencies, call 911 or 988.<br><br>Axis</div></div>
+    <div style="display:grid;gap:16px">
+      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Who returns missed calls</li><li>Office hours</li></ul></div>
+      <div class="panel appr" data-appr="text"></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="reviews" hidden>
+  <div><div class="eyebrow">Growth plan</div><h2>Reviews plan</h2></div>
+  <div class="ladder">
+    <div class="rung"><div class="s">STEP 1</div><h3>Invite people you know</h3></div>
+    <div class="rung"><div class="s">STEP 2</div><h3>They get real value</h3></div>
+    <div class="rung"><div class="s">STEP 3</div><h3>One QR code at the end</h3></div>
+    <div class="rung"><div class="s">STEP 4</div><h3>Repeat each event</h3></div>
+  </div>
+  <div class="two">
+    <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">Rules</h3><ul class="list"><li>Never ask current or former clients</li><li>No staff or immediate family reviews</li><li>No rewards tied to a review</li><li>Ask for feedback, not for stars</li></ul></div>
+    <div class="panel" style="display:grid;gap:10px">
+      <h3 style="font-size:16px">We will need: 10 to 15 people to invite to Nov 11</h3>
+      <textarea id="invites" aria-label="People to invite" placeholder="Names or offices, one per line" style="min-height:140px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:15px/1.5 var(--body)"></textarea>
+      
+    </div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="setup" hidden>
+  <div><div class="eyebrow">Live, on this call</div><h2>Yelp, Apple Maps, Google Ads</h2></div>
+  <div class="setup">
+    <div class="panel su"><h3>Yelp</h3><ol><li>Claim Axis Counseling</li><li>Verify by call or text to 248-831-0838</li><li>Add MTC Digital as a user</li></ol><button class="done" data-k="yelp">Mark done</button></div>
+    <div class="panel su"><h3>Apple Maps</h3><ol><li>Sign in with your Apple ID</li><li>Claim the location and verify</li><li>Upload documents if Apple asks</li></ol><button class="done" data-k="apple">Mark done</button></div>
+    <div class="panel su"><h3>Google Ads verification</h3><ol><li>Google Ads, then Advertiser verification</li><li>Upload ID and business document</li><li>Short video selfie if prompted</li></ol><button class="done" data-k="gads">Mark done</button></div>
+  </div>
+  <div class="panel">
+    <div><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Driver's license or passport</li><li>IRS EIN letter (CP 575 or 147C), PDF or clear photo</li><li>The phone for 248-831-0838</li><li>Apple ID login</li><li>Phone camera for a short face video</li></ul></div>
+  </div>
+</section>
+
+<section class="slide gut" data-id="wrap" hidden>
+  <div><div class="eyebrow">Wrap-up</div><h2>Summary</h2></div>
+  <div class="two">
+    <div class="panel sum" id="sum"></div>
+    <div style="display:grid;gap:12px">
+      <pre class="recap" id="recap"></pre>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="main-btn" id="copyRecap">Copy recap email</button></div>
+    </div>
+  </div>
+  <div class="tl">
+    <div><b>Today</b><span>Sign-offs and verifications</span></div>
+    <div><b>Wed Nov 4</b><span>Video and photo shoot at noon; ads launch once Google verification clears</span></div>
+    <div><b>Wed Nov 11</b><span>Lunch &amp; Learn #1 at noon</span></div>
+    <div><b>Mon Nov 24</b><span>Milestone 1 complete</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="bot"><div class="in gut">
+  <button id="prev">‹ Back</button>
+  <div class="prog" aria-hidden="true"><div id="bar"></div></div>
+  <span class="pos" id="pos"></span>
+  <button id="next" class="main-btn">Next ›</button>
+</div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const FAQ=[["Do you offer online therapy in Michigan?", "Yes. Axis offers secure online therapy (telehealth) for individuals and couples anywhere in Michigan, with the same depth and attentiveness as in-person sessions at our West Bloomfield office. Sessions take place over a private, secure video platform. Request a complimentary 15-minute consultation to find the clinician and format that fit you."], ["Do you offer couples therapy and marriage counseling in West Bloomfield?", "Yes. Axis provides couples therapy and marriage counseling at our West Bloomfield office, serving Bloomfield Hills, Birmingham, Farmington Hills, and Novi, and online throughout Michigan. We help partners understand the patterns behind recurring conflict, improve communication, and rebuild connection. Start with a complimentary 15-minute consultation."], ["Does insurance cover couples therapy?", "It depends on your plan. Many insurance plans cover therapy only when it treats a diagnosed condition for one person, so couples therapy may not be covered. Participation varies by clinician, and private pay is available. Contact us and we can talk through options during your complimentary consultation."], ["Do you work with teenagers?", "Yes. Some Axis clinicians work with adolescents as well as adults, helping teens with anxiety, low mood, stress, self-esteem, and life changes. Sessions are available in person in West Bloomfield or online in Michigan. Parents can request a complimentary 15-minute consultation to find the right clinician."], ["What is the difference between a psychologist and a therapist?", "\"Therapist\" is a broad term for licensed mental health professionals who provide talk therapy, including counselors, social workers, and psychologists. A psychologist typically holds a doctoral degree (PhD or PsyD) with extensive training in assessment and psychotherapy. Our team includes a doctoral-level licensed psychologist and master's-level therapists, and our complimentary consultation helps match you with the right fit."], ["What should I expect at my first therapy session?", "Your first session is mostly a conversation. Your clinician will ask what brings you in, a bit about your history, and what you hope will change, and you can ask about their approach. There is no pressure to share everything at once. Before that, Axis offers a complimentary 15-minute consultation so you can ask questions and see if we are a good fit."], ["How long does therapy take?", "It varies. Some people come for a focused few months to work through a specific concern, while others continue longer to explore deeper patterns. You and your clinician set goals and check in on progress along the way, so the length of therapy is a decision you make together. Weekly sessions are the most common among our clients."], ["Is online therapy as effective as in-person therapy?", "For many people, yes. Research has found telehealth therapy effective for a range of concerns, including anxiety and depression, and many clients value the convenience. Others prefer being in the room. Axis offers both, in our West Bloomfield office and online throughout Michigan, so you can choose what works best for you."], ["Can a psychologist fill out FMLA or disability paperwork?", "Yes. Under the FMLA, clinical psychologists and clinical social workers are among the providers who can certify a serious health condition. At Axis, Dr. Edward L. Jackson, a licensed psychologist, completes FMLA, medical leave, short-term disability, and workplace accommodation paperwork for clients in his ongoing care, based on his clinical judgment. Talk with your clinician about your situation."], ["How much does therapy cost, and can I pay without insurance?", "Axis accepts private pay and works with many insurance providers. We believe cost shouldn't stand in the way of getting the care you need. As part of our commitment to giving back to the community, we may be able to offer reduced-cost care to clients facing financial hardship. Give us a call to discuss your options, or ask about fees during your complimentary 15-minute consultation."]];
+const STEPS=[
+ {id:"welcome",t:"Agenda"},
+ {id:"flyer",t:"Flyer",d:"Lunch & Learn, Nov 11",m:3,appr:"Lunch & Learn flyer"},
+ {id:"slides",t:"Slide deck",d:"12 slides for the talk",m:5,appr:"Lunch & Learn slide deck"},
+ {id:"ads",t:"Google Ads",d:"Updated wording",m:3,appr:"Google Ads wording"},
+ {id:"faq",t:"FAQs",d:"10 answers for the website",m:5,appr:"Website FAQs (all 10)"},
+ {id:"video",t:"Video script",d:"Shoot Nov 4",m:4,appr:"Homepage video script"},
+ {id:"text",t:"Missed-call text",d:"Spruce auto-reply",m:1,appr:"Missed-call text-back"},
+ {id:"reviews",t:"Reviews plan",d:"Who to invite Nov 11",m:3},
+ {id:"setup",t:"Live setup",d:"Yelp, Apple, Google",m:8},
+ {id:"wrap",t:"Wrap-up",d:"Recap email",m:2}];
+const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"]];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const APPR=STEPS.filter(s=>s.appr);
+let S={items:{},setup:{},invites:""};
+let db=null;const LS="axis-launch-deck";
+function loadLocal(){try{const v=JSON.parse(localStorage.getItem(LS));if(v)S=Object.assign(S,v);}catch(e){}}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}}
+function toast(t){const el=$("toast");el.textContent=t;el.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>el.classList.remove("on"),1500);}
+function syncLabel(t){$("sync").textContent=t;}
+
+// persistence: one doc per approval item, one for setup, one for invites
+const timers={};
+function write(path,data,delay){
+  saveLocal();
+  if(!db)return;
+  clearTimeout(timers[path]);
+  timers[path]=setTimeout(()=>{syncLabel("Saving…");db.doc(path).set(data).then(()=>syncLabel("Saved")).catch(()=>syncLabel("Not saved, check connection"));},delay||0);
+}
+function stateOf(id){return (S.items[id]||{}).v||"";}
+
+// navigation
+let cur=0;
+const slides=[...document.querySelectorAll(".slide")];
+function go(i,push){
+  cur=Math.max(0,Math.min(STEPS.length-1,i));
+  slides.forEach((s,k)=>s.hidden=k!==cur);
+  $("stage").scrollTop=0;
+  $("pos").textContent=`${cur+1} of ${STEPS.length}`;
+  $("bar").style.width=(cur/(STEPS.length-1)*100)+"%";
+  $("prev").disabled=cur===0;
+  $("next").textContent=cur===STEPS.length-1?"Back to agenda":"Next ›";
+  if(push!==false&&location.hash!=="#"+STEPS[cur].id)history.replaceState(null,"","#"+STEPS[cur].id);
+  paintChips();
+  if(STEPS[cur].id==="wrap")paintWrap();
+}
+$("prev").onclick=()=>go(cur-1);
+$("next").onclick=()=>go(cur===STEPS.length-1?0:cur+1);
+document.addEventListener("keydown",e=>{
+  if(/TEXTAREA|INPUT/.test(e.target.tagName))return;
+  if(STEPS[cur].id==="slides"&&(e.key==="ArrowRight"||e.key==="ArrowLeft"))return;
+  if(e.key==="ArrowRight"||e.key==="PageDown")go(cur+1);
+  if(e.key==="ArrowLeft"||e.key==="PageUp")go(cur-1);
+});
+function fromHash(){const k=STEPS.findIndex(s=>s.id===location.hash.slice(1));go(k<0?0:k,false);}
+window.addEventListener("hashchange",fromHash);
+
+function stepStatus(s){
+  if(s.appr)return stateOf(s.id);
+  if(s.id==="setup")return SETUP.every(([k])=>S.setup[k])?"done":"";
+  if(s.id==="reviews")return S.invites.trim()?"done":"";
+  return "";
+}
+const LABEL={up:"Approved",ch:"Change noted",done:"Done","":"To do"};
+function paintChips(){
+  $("chips").innerHTML=STEPS.map((s,i)=>`<button class="chip ${i===cur?"on":""}" data-i="${i}">${i?`<span class="k">${i}</span>`:""}${esc(s.t)}${i?`<span class="st ${stepStatus(s)}"></span>`:""}</button>`).join("");
+  $("chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>go(+b.dataset.i));
+  const on=$("chips").querySelector(".on");on&&on.scrollIntoView({block:"nearest",inline:"nearest"});
+  const up=APPR.filter(s=>stateOf(s.id)==="up").length;
+  $("tally").innerHTML=`<b>${up}</b> of ${APPR.length} approved`;
+  $("agenda").innerHTML=STEPS.slice(1).map((s,i)=>{const st=stepStatus(s);return `<button class="ag" data-i="${i+1}"><span class="k">${i+1}</span><b>${esc(s.t)}</b><span class="m">${s.m} min</span><small>${esc(s.d)}</small><span class="badge ${st}">${LABEL[st]}</span></button>`;}).join("");
+  $("agenda").querySelectorAll(".ag").forEach(b=>b.onclick=()=>go(+b.dataset.i));
+}
+
+// approval controls
+document.querySelectorAll("[data-appr]").forEach(el=>{
+  const id=el.dataset.appr;
+  el.innerHTML=`<button class="up">Approved</button><button class="ch">Needs a change</button><textarea id="note-${id}" placeholder="What should change?" hidden></textarea>`;
+  const [u,c]=el.querySelectorAll("button"),n=el.querySelector("textarea");
+  el._paint=()=>{const v=stateOf(id);u.classList.toggle("on",v==="up");c.classList.toggle("on",v==="ch");n.hidden=v!=="ch";if(document.activeElement!==n)n.value=(S.items[id]||{}).note||"";};
+  const set=v=>{const it=Object.assign({v:"",note:""},S.items[id]);it.v=it.v===v?"":v;S.items[id]=it;write("items/"+id,it);el._paint();paintChips();if(it.v==="ch")n.focus();};
+  u.onclick=()=>set("up");c.onclick=()=>set("ch");
+  n.oninput=()=>{const it=Object.assign({v:"ch",note:""},S.items[id]);it.note=n.value;S.items[id]=it;write("items/"+id,it,700);};
+});
+function paintAppr(){document.querySelectorAll("[data-appr]").forEach(el=>el._paint());}
+
+// setup + invites
+document.querySelectorAll(".done").forEach(b=>b.onclick=()=>{S.setup[b.dataset.k]=!S.setup[b.dataset.k];write("items/setup",S.setup);paintSetup();paintChips();});
+function paintSetup(){document.querySelectorAll(".done").forEach(b=>{const on=!!S.setup[b.dataset.k];b.classList.toggle("on",on);b.textContent=on?"✓ Done":"Mark done";});}
+$("invites").oninput=e=>{S.invites=e.target.value;write("items/invites",{text:S.invites},700);};
+function paintInvites(){if(document.activeElement!==$("invites"))$("invites").value=S.invites;}
+
+// slide deck viewer
+const N=12;let sc=1;
+const sp=i=>`slide-${String(i).padStart(2,"0")}.png`;
+for(let i=1;i<=N;i++){const im=document.createElement("img");im.src=sp(i);im.alt="Slide "+i;im.loading="lazy";im.onclick=()=>showSlide(i);$("thumbs").appendChild(im);}
+function showSlide(i){sc=(i-1+N)%N+1;$("slideMain").src=sp(sc);$("slideMain").alt="Slide "+sc;$("sNum").textContent=`${sc} of ${N}`;[...$("thumbs").children].forEach((t,k)=>t.classList.toggle("on",k===sc-1));}
+$("sPrev").onclick=()=>showSlide(sc-1);$("sNext").onclick=()=>showSlide(sc+1);
+document.addEventListener("keydown",e=>{if(STEPS[cur].id!=="slides"||/TEXTAREA|INPUT/.test(e.target.tagName))return;if(e.key==="ArrowRight")showSlide(sc+1);if(e.key==="ArrowLeft")showSlide(sc-1);});
+showSlide(1);
+
+// faq
+$("faqList").innerHTML=FAQ.map(([q,a],i)=>`<details><summary><span class="n">${i+1}</span>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("");
+
+// wrap-up
+function recapText(){
+  const lines=APPR.map(s=>{const it=S.items[s.id]||{};return it.v==="up"?`- ${s.appr}: approved`:it.v==="ch"?`- ${s.appr}: change requested: ${(it.note||"").trim()||"see notes"}`:`- ${s.appr}: still to review`;});
+  const live=SETUP.filter(([k])=>S.setup[k]).map(([,t])=>"- "+t);
+  return `Subject: Axis: summary of today's review\n\nHi Edward,\n\nThank you for your time today. Here is a summary of what we covered:\n\n${lines.join("\n")}\n${live.length?"\nCompleted together:\n"+live.join("\n")+"\n":""}\nA quick reply confirming this summary is all we need for our records. Any requested changes will be made and sent to you before they go live.\n\nNext: the video and photo shoot is Wednesday, November 4 at noon, and the Lunch & Learn is Wednesday, November 11 at noon.\n\nThank you,\nEverett\nMTC Digital LLC\neverett@mtcdigitalservices.com\n248-912-8836`;
+}
+function paintWrap(){
+  const rows=APPR.map(s=>{const v=stateOf(s.id);return [s.appr,v||"no",v==="up"?"Approved":v==="ch"?"Change noted":"Still to review"];})
+   .concat(SETUP.map(([k,t])=>[t.replace(" claimed","").replace(" submitted",""),S.setup[k]?"done":"no",S.setup[k]?"Done":"Not yet"]));
+  $("sum").innerHTML=rows.map(([l,c,t])=>`<div class="row"><span>${esc(l)}</span><span class="v ${c}">${t}</span></div>`).join("");
+  $("recap").textContent=recapText();
+}
+$("copyRecap").onclick=async()=>{const t=recapText();try{await navigator.clipboard.writeText(t);toast("Recap copied");}catch(e){const r=document.createRange();r.selectNodeContents($("recap"));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);toast("Selected, press Cmd+C");}};
+
+function paintAll(){paintAppr();paintSetup();paintInvites();paintChips();if(STEPS[cur].id==="wrap")paintWrap();}
+
+// boot
+loadLocal();fromHash();paintAll();
+(async()=>{
+  const c=window.claude;
+  const ns=c&&c.use?await c.use("db").catch(()=>null):null;
+  if(!ns){syncLabel("");return;}
+  db=ns;syncLabel("Loading…");
+  const t=setTimeout(()=>syncLabel("Saving on this device"),10000);
+  db.collection("items").onSnapshot(snap=>{
+    clearTimeout(t);
+    snap.docs.forEach(d=>{const v=d.data()||{};
+      if(d.id==="setup")S.setup=v;
+      else if(d.id==="invites")S.invites=v.text||"";
+      else S.items[d.id]=v;});
+    saveLocal();paintAll();syncLabel("Saved for everyone");
+  },()=>{clearTimeout(t);syncLabel("Saving on this device");db=null;});
+})();
+</script>
+</body></html>
