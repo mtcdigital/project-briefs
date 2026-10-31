@@ -12,6 +12,7 @@
   --display:Syne,"Avenir Next",system-ui,sans-serif;--body:Outfit,"Helvetica Neue",system-ui,sans-serif;
   color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);display:flex;flex-direction:column;overflow:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
@@ -128,7 +129,7 @@ button:focus-visible,a:focus-visible,textarea:focus-visible,summary:focus-visibl
 .rung p{margin:0;color:var(--mute);font-size:14.5px}
 
 /* setup */
-.setup{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.setup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(max-width:860px){.setup{grid-template-columns:1fr}}
 .su h3{font-size:18px}
 .su .who{color:var(--mute);font-size:14px;margin:4px 0 10px}
@@ -229,25 +230,18 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
 </section>
 
 <section class="slide gut" data-id="video" hidden>
-  <div><div class="eyebrow">Homepage video · shoot Wednesday, Nov 4 at 12:00 pm</div><h2>Video script</h2></div>
-  <div class="two">
+  <div><div class="eyebrow">Homepage video · Wed Nov 4, 12:00 pm</div><h2>Video script</h2></div>
+  <div class="two" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
     <div class="panel" style="display:grid;gap:16px">
-      <div class="beat"><span class="who">Opening · Edward, voiceover over office shots</span><q>Starting therapy can be the hardest part. At Axis, we try to make it feel human from the first hello. We're a boutique practice in West Bloomfield, built around one idea: that the relationship with your therapist matters more than anything else.</q></div>
-      <div class="beat"><span class="who">On camera · one line each, three used</span>
-        <div class="lines">
-          <div><b>Karen Brickner</b><span>"I work with adults moving through grief, loss, and the big changes life brings."</span></div>
-          <div><b>Maurice Umejiego</b><span>"I work with teens and adults, and I think the best therapy starts with trust."</span></div>
-          <div><b>Shiloh Torres</b><span>"I help people who are carrying trauma or intense emotions feel understood, not judged."</span></div>
-          <div class="alt"><b>Sailesh Yellayi, alternate</b><span>"Therapy should adapt to you, not the other way around."</span></div>
-        </div></div>
-      <div class="beat"><span class="who">Closing · Edward, voiceover</span><q>Individuals, couples, and teens. In person here in West Bloomfield, or online anywhere in Michigan. It starts with a complimentary 15-minute conversation. When you're ready, we're here.</q></div>
+      <div class="beat"><span class="who">0:00 · Edward on camera</span><q>Hi, I'm Dr. Edward Jackson, a licensed psychologist and director of Axis Counseling and Psychological Services in West Bloomfield.</q></div>
+      <div class="beat"><span class="who">0:07 · Walking in, therapy rooms, refreshments</span><q>We built Axis around a simple belief: therapy should begin with the person, not a diagnosis. You can be successful and still struggle with anxiety. You can be surrounded by people and still feel alone.</q></div>
+      <div class="beat"><span class="who">0:22 · Edward in session (stand-in client)</span><q>Here, we take the time to understand the whole person: your relationships, your patterns, your strengths, and the life you want to build.</q></div>
+      <div class="beat"><span class="who">0:32 · Edward on camera</span><q>Our team works with individuals, couples, and teens, in person or online anywhere in Michigan. You don't have to wait until life falls apart to ask for help.</q></div>
+      <div class="beat"><span class="who">0:44 · The whole team, waving</span><q>If something is getting in the way of the life you want, maybe it's time to talk. Start with a complimentary 15-minute consultation.</q></div>
+      <div class="beat"><span class="who">0:52 · Fade to white, Axis logo</span><q>We're here when you're ready.</q></div>
     </div>
     <div style="display:grid;gap:16px">
-      <div class="panel facts">
-        <div class="fact"><span class="l">On screen</span><div>Each clinician's name and credential; "In person in West Bloomfield. Online across Michigan."</div></div>
-        <div class="fact"><span class="l">End card</span><div>Axis logo, acaps.co/get-started, 248-831-0838</div></div>
-        </div>
-      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Axis logo file (PDF)</li><li>Signed photo and video releases</li><li>Filming rooms and hallway clear, 12:00 to 1:30</li></ul></div>
+      <div class="panel"><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Axis logo file</li><li>A staff member to sit in as the client</li><li>All clinicians on site for the team shot</li><li>Signed video releases</li><li>Refreshments set out</li><li>Rooms and hallway clear, 12:00 to 1:30</li></ul></div>
       <div class="panel appr" data-appr="video"></div>
     </div>
   </div>
@@ -283,11 +277,12 @@ pre.recap{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line)
 </section>
 
 <section class="slide gut" data-id="setup" hidden>
-  <div><div class="eyebrow">Live, on this call</div><h2>Yelp, Apple Maps, Google Ads</h2></div>
+  <div><div class="eyebrow">Live, on this call</div><h2>Yelp, Apple Maps, Google Ads, website</h2></div>
   <div class="setup">
     <div class="panel su"><h3>Yelp</h3><ol><li>Claim Axis Counseling</li><li>Verify by call or text to 248-831-0838</li><li>Add MTC Digital as a user</li></ol><button class="done" data-k="yelp">Mark done</button></div>
     <div class="panel su"><h3>Apple Maps</h3><ol><li>Sign in with your Apple ID</li><li>Claim the location and verify</li><li>Upload documents if Apple asks</li></ol><button class="done" data-k="apple">Mark done</button></div>
     <div class="panel su"><h3>Google Ads verification</h3><ol><li>Google Ads, then Advertiser verification</li><li>Upload ID and business document</li><li>Short video selfie if prompted</li></ol><button class="done" data-k="gads">Mark done</button></div>
+  <div class="panel su"><h3>Website code access</h3><ol><li>Contact for whoever built acaps.co, to find where the code is stored and get access</li></ol><button class="done" data-k="site">Mark done</button></div>
   </div>
   <div class="panel">
     <div><h3 style="font-size:16px;margin-bottom:8px">We will need</h3><ul class="list"><li>Driver's license or passport</li><li>IRS EIN letter (CP 575 or 147C), PDF or clear photo</li><li>The phone for 248-831-0838</li><li>Apple ID login</li><li>Phone camera for a short face video</li></ul></div>
@@ -332,9 +327,9 @@ const STEPS=[
  {id:"video",t:"Video script",d:"Shoot Nov 4",m:4,appr:"Homepage video script"},
  {id:"text",t:"Missed-call text",d:"Spruce auto-reply",m:1,appr:"Missed-call text-back"},
  {id:"reviews",t:"Reviews plan",d:"Who to invite Nov 11",m:3},
- {id:"setup",t:"Live setup",d:"Yelp, Apple, Google",m:8},
+ {id:"setup",t:"Live setup",d:"Yelp, Apple, Google, website",m:9},
  {id:"wrap",t:"Wrap-up",d:"Recap email",m:2}];
-const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"]];
+const SETUP=[["yelp","Yelp claimed"],["apple","Apple Maps (Apple Business Connect) claimed"],["gads","Google Ads advertiser verification submitted"],["site","Website developer contact and code access"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const APPR=STEPS.filter(s=>s.appr);
